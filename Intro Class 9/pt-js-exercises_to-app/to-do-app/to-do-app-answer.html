@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <title>jQuery To Do List App</title>
+</head>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<body>
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="page-header"> <h1>jQuery To Do List App</h1></div>
+    <form>
+      <input class="form-control input-lg" type="text" placeholder="Add an item...">
+    </form>
+    <ul>
+      <!-- To do items get added dynamically here -->
+    </ul>
+  </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('form').on('submit', function(e) {
+      e.preventDefault();
+
+      if ($('input').val() !== '') {
+          var toDoItem = $('input').val();
+          $('ul').append("<li> <span class='glyphicon glyphicon-unchecked'></span>" + toDoItem + "</li>");
+          $('input').val(''); // clear input
+      };
+
+  });
+
+  $('ul').on('click', 'li', function() {
+      var checkBox = $(this).find('.glyphicon');
+      checkBox.toggleClass("glyphicon-unchecked glyphicon-check");
+      $(this).toggleClass("text-muted")
+  });
+});
+</script>
+</body>
+</html>

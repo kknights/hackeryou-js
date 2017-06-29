@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tutorial: manipulating the DOM with jQuery</title>
+
+  <style>
+    .highlight {
+      background: yellow;
+    }
+
+    .img-highlight {
+      outline: 5px solid black;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tutorial: manipulating the DOM with jQuery</h1>
+
+  <p class="firstp">Paragraph 1: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, velit, rerum, aspernatur reiciendis cumque incidunt itaque at autem ullam earum rem asperiores. Sequi distinctio temporibus est provident veniam. Ab, iste.</p>
+
+  <p class="secondp">Paragraph 2: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, repudiandae, dolorum neque veritatis eos reprehenderit consequuntur velit dolores necessitatibus error nulla rerum nam vel quos quidem expedita molestias perspiciatis perferendis.</p>
+
+  <img src="http://lorempixel.com/200/200">
+  <img src="http://lorempixel.com/200/200">
+  <img src="http://lorempixel.com/200/200">
+  <img src="http://lorempixel.com/200/200">
+
+  <!-- Include jQuery below this line -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+
+  $('p').on('click', function(){
+    $(this).toggleClass('highlight');
+  })
+
+  $('img').on('click', function() {
+    $(this).toggleClass('img-highlight');
+  });
+
+  </script>
+</body>
+</html>

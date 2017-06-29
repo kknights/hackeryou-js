@@ -1,0 +1,169 @@
+@media (max-width: 940px) {
+	.wrapper {
+		margin:1%;
+	}
+	/* About */
+	.about h2 {
+		margin-top:50px;
+		font-size:36px;
+	}
+	.about ul {
+		clear:both;
+		margin-top: 10px;
+		float:left;
+		width:100%;
+	}
+		.about ul li {
+			width:32%;
+			text-align: center;
+		}
+
+	/* Process */
+	.processWrapper {
+		position: relative;
+		left: -4%;
+	}
+
+	/* Force the skills to be open as we probably dont have a hoverstate on a screen this small */
+	/* Define how good you are here */
+	.skills ul.skillMeter li.skill1 { width: 107%; }
+	.skills ul.skillMeter li.skill2 { width: 72%; }
+	.skills ul.skillMeter li.skill3 { width: 87%; }
+	.skills ul.skillMeter li.skill4 { width: 92%; }
+	.skills ul.skillMeter li.skill5 { width: 102%; }
+	.skills ul.skillMeter li.skill6 { width: 79%; }
+	.skills ul.skillMeter li.skill6 { width: 100%; }
+	.skills ul.skillMeter li.skill7 { width: 90%; }
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	/* Header */
+	.header {
+
+	}
+		.header h1 {
+			text-align: center;
+			width:100%;
+		}
+		.header ul.nav {
+			text-align: center;
+			width:100%;
+			padding: 0;
+			margin-top:0;
+		}
+
+	.about ul li {
+		width:49%;
+	}
+	/* Work */
+	.workWrapper {
+		width:100%;
+	}
+	.tweets {
+		width:100%;
+	}
+		.tweets iframe {
+			width:100%;
+			height:300px;
+		}
+
+
+	/* Skills */
+	.skills h2 {
+		width:100%;
+		padding:0;
+	}
+	ul.skillMeter {
+		border:0;
+		text-align: center;
+		width:100%;
+	}
+		ul.skillMeter li {
+			display:inline-block;
+			border: 1px solid #247ab6;
+			border-radius: 4px;
+			max-width:100%;
+		}
+
+		.skills ul.skillMeter li.skill1 { width: 107%; }
+		.skills ul.skillMeter li.skill2 { width: 72%; }
+		.skills ul.skillMeter li.skill3 { width: 87%; }
+		.skills ul.skillMeter li.skill4 { width: 92%; }
+		.skills ul.skillMeter li.skill5 { width: 102%; }
+		.skills ul.skillMeter li.skill6 { width: 79%; }
+		.skills ul.skillMeter li.skill6 { width: 100%; }
+		.skills ul.skillMeter li.skill7 { width: 90%; }
+
+		/* hide the axis labels as they don't make sense with this layout */
+		.axisLabels { display:none; }
+
+	/* Process */
+	.processWrapper {
+		position: static;
+		text-align: center;
+	}
+	.processBox .processBlurb {
+		position: relative;
+		display: block;
+		top:0;
+	}
+	.processBox .ring {
+		position: relative;
+		left:auto;
+		margin: 0 auto;
+		width:150px;
+		height: 150px;
+	}
+	.processBox {
+		width:50%;
+		float:left;
+		min-height: 370px;
+	}
+	.processBox h3 {
+		background-size:50%;
+		padding: 0;
+		margin: 0;
+		padding-top: 90px;
+		margin-top: 20px; padding-top: 70px; 
+	}
+	.processBox1 h3 {background-size:80px; }
+	.processBox2 h3 {background-size:80px; background-position: 33px 20px; }
+	.processBox3 h3 {background-size:30px; }
+	.processBox4 h3 {background-size:30px; }
+
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
+	/* General */
+	h2 {
+		text-align: center;
+		width:100%;
+	}
+	.block {
+		width:100%;
+		height:100px;
+		overflow: hidden;
+	}
+	.contactLeft, .contactRight {
+		padding:1%;
+		width:100%;
+	}
+	ul.nav li a {
+		font-size:12px;
+	}
+	/* About */
+	.about {
+		text-align: center;
+	}
+		.about h2 {
+			clear:both;
+			margin: 0;
+		}
+		.about img {
+			float:none;
+			margin:0;
+		}
+}

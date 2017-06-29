@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dev Tools Exercise</title>
+</head>
+<body>
+
+
+  <script>
+
+      var dogs = ['muffin', 'winston', 'micro', 'knopie', 'hugo', 'snickers'];
+
+      var clothing = {
+        hats : 23,
+        shirts : {
+          small : 3,
+          medium : 40,
+          large :  34
+        },
+        vests : 5
+      };
+
+
+      var users = [
+        { name: 'Vic Vinegar', age: 16 , avatar : 'vexy.jpg'},
+        { name: 'Charlie Kelly', age: 25 , avatar : 'charles-smile.gif'},
+        { name: 'Wes Bos', age: 28, avatar : 'cool.webp' },
+        { name: 'Prudence Thunder', age: 9, avatar : 'pru-do.jpg' }
+      ];
+
+      /*
+        Console.table:
+      */
+
+      console.table(users);
+
+
+
+      /*
+        console.group example
+      */
+
+      // users.forEach(function(user){
+      //   var nameParts = user.name.split(' ');
+      //   var img = document.createElement('img');
+      //   img.src = user.avatar;
+      //   console.group(`Now working on ${user.name}`);     // Start a new console group
+
+      //   console.log(`${nameParts[0]} is currently ${user.age} years old`);
+      //   console.info(`That is ${user.age * 7} in dog years!`);
+      //   console.log(img);
+
+      //   console.groupEnd();                               // close the console group
+      // });
+
+
+      /*
+        Console.error,
+        Console.info,
+        Console.log,
+
+      */
+
+      // var image = '';
+      // if(!image)  {
+      //   console.error("You forgot to supply an image!");
+      // }
+      // console.info('Russia has a larger surface area than Pluto.');
+
+      // console.log(document.body);
+
+
+      /*
+        Count Example
+      */
+
+      // console.count('car');
+      // console.count('car');
+      // console.count('truck');
+      // console.count('car');
+      // console.count('car');
+      // console.count('car');
+      // console.count('truck');
+      // console.count('car');
+      // console.count('car');
+
+
+
+      /*
+        debugger;
+      */
+
+      function yell(name){
+        var uppercaseName = name.toUpperCase();
+        debugger;
+        var sentence = "HEY " + name + " YOU ARE COOL";
+        return sentence;
+      }
+
+      var whatIsYourName = prompt("What is your name?");
+
+      console.log( yell(whatIsYourName) );
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Colours!</title>
+</head>
+<body>
+  <div class="grid">
+    <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span><span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+  $(function(){
+    // Here is an array of colour names that reflect CSS classes
+    var colours = ["red","orange","yellow","green","blue","indigo","violet"];
+
+    // Write (or find online) a function to generate a number between 1 and n.
+    const randomNumber = function(number){
+      return Math.floor(Math.random() * number);
+    }
+
+
+    // write a function that returns a random colour from the array you pass it. Use the prevous random number function
+    // Remember that arrays are zero based
+    const randomColour = function(colours){
+      const i = randomNumber(colours.length);
+      const colour = colours[i];
+      return colour;
+    };
+
+
+
+    $('.grid span').on('click',function() {
+      var colour = randomColour(colours);
+      $(this).removeClass();
+      $(this).addClass(colour);
+    });
+
+    // console.log(randomColour);
+
+  });
+
+  // Write some jQuery to listen for when span is clicked. When it is clicked, assign a random colour to that span.
+  // If you click it 10 times, it should always give it a random colour
+  // only 1 class should be on each span at a time
+
+
+  // Bonus: Write a button to clear everything back to normal
+
+  </script>
+
+  <style>
+  body {
+    margin:0;
+  }
+  .grid span {
+    display: block;
+    width:100px;
+    height:100px;
+    border:1px solid rgba(0,0,0,0.03);
+    float: left;
+    -webkit-transition:all 0.1s;
+    background:white;
+  }
+
+  .grid span.red { background: #c0392b;}
+  .grid span.orange { background: #d35400;}
+  .grid span.yellow { background: #f1c40f;}
+  .grid span.green { background: #1abc9c;}
+  .grid span.blue { background: #2980b9;}
+  .grid span.indigo { background: #34495e;}
+  .grid span.violet { background: #9b59b6;}
+  </style>
+</body>
+</html>

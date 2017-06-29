@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Times</title>
+</head>
+<body>
+  <script>
+
+  // here is a list of timecodes from some youtube videos:
+
+  var times = ["5:17", "8:22", "3:34", "5:23", "7:12", "7:24", "6:46", "4:45", "4:40", "7:58", "11:51", "9:13", "5:50", "5:52", "5:49", "8:57", "11:29", "3:07", "5:59", "3:31"];
+
+  var totalMinutes = [];
+  var totalHours = [];
+  var totalSeconds = [];
+
+  // TODO alternate method, rewrite using this
+  times = times.map(function(i){
+
+    var decimalTime = i.split(":").join(".");
+    var minutes = Math.floor(decimalTime);
+    var hours = minutes / 60;
+    var seconds = minutes * 60;
+
+    totalMinutes.push(minutes);
+    totalHours.push(hours);
+    totalSeconds.push(seconds);
+  });
+
+
+  totalMinutes = totalMinutes.reduce(function(prevValue, currentValue){
+    return prevValue + currentValue;
+  }, 0)
+
+  totalHours = totalHours.reduce(function(prevValue, currentValue){
+    return prevValue + currentValue;
+  }, 0)
+
+  totalSeconds = totalSeconds.reduce(function(prevValue, currentValue){
+    return prevValue + currentValue;
+  }, 0)
+
+
+  console.log(`There is a total of ${totalHours} hours`);
+  console.log(`There is a total of ${totalMinutes} minutes`);
+  console.log(`There is a total of ${totalSeconds} seconds`);
+
+
+  // console.log(times);
+
+
+
+  // JORDAN'S NOTE: hey - was just thinking about the second conversion and just multiplying by 60 will result in some mislead seconds (for example `1.5` minutes would result in `90` seconds instead of `110`. I still think you can accomplish the first part in that one map function though. within the map convert try converting the minutes to seconds and then just adding the seconds. Return the value in seconds (newly converted minutes + seconds). The rest you can do in the reduce
+
+
+
+
+  // Tip: You'll have to _split_ the strings into minutes and seconds, and then tally the total minutes
+  </script>
+</body>
+</html>

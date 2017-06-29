@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+
+  <script>
+  // prompt the user for their age
+  // based on their age, associate them with a generation. Store their generation name in a variable
+
+  // 50+ →     Boomer
+  // 34-49 →   Gen X
+  // 15 - 33 → Gen Y
+  // 3 - 14 →  Millennial
+  // 3 or less → Gen Z
+
+  // when that is done, alert "You are a _______"
+
+  var age = prompt("how old are you?");
+  var generation;
+
+  if (age >= 50) {
+    generation = "Boomer";
+  } else if (age >= 34 && age <= 49) {
+    generation = "Gen X";
+  } else if (age >= 15 && age <= 33) {
+    generation = "Gen Y";
+  } else if (age >= 3 && age <= 14) {
+    generation = "Millenial";
+  }  else {
+    generation = "Gen Z";
+  }
+  alert("You are a " +  generation);
+
+  </script>
+</body>
+</html>

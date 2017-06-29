@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+  <title>jQuery Events</title>
+</head>
+<style>
+
+.box {
+  width:200px;
+  height:200px;
+  margin:20px;
+  float:left;
+}
+
+.box1 {background:red;}
+.box2 {background:green;}
+.box3 {background:blue;}
+.box4 {background:yellow;}
+
+.error {
+  color: red;
+}
+
+</style>
+
+<body>
+
+  <div class="box box1"></div>
+  <div class="box box2"></div>
+  <div class="box box3"></div>
+  <div class="box box4"></div>
+
+
+
+  <input type="text" id="textfield">
+
+  <p class="text"></p>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script>
+
+
+  $(function() {
+
+    $('input#textfield').on('input', function(){
+      var textVal = $(this).val();
+      $('.text').html(textVal);
+
+      if (textVal.length > 25){
+        $('.text').addClass('error')
+      }
+    })
+
+
+
+
+
+  });
+
+
+
+
+
+  </script>
+</body>
+</html>

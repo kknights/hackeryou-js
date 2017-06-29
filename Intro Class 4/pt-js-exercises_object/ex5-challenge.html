@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Object Challenge Exercise</title>
+</head>
+<body>
+  <script>
+  /*
+  Here is an object full of flights
+  Rach flight's property name is the flights Code.
+  AC = Air Canada
+  WJ = West Jet
+  UN = United
+  */
+
+  var flights = {
+    AC123: {
+      passengers: 43,
+      from: 'YYZ',
+      to: 'BOS'
+    },
+    WJ342: {
+      passengers: 60,
+      from: 'YHM',
+      to: 'YQR'
+    },
+    AC543: {
+      passengers: 34,
+      from: 'YYZ',
+      to: 'SFO'
+    },
+    UN523: {
+      passengers: 34,
+      from: 'YYZ',
+      to: 'AUS'
+    },
+    WJ234: {
+      passengers: 123,
+      from: 'AUS',
+      to: 'YYZ'
+    },
+    AC9222: {
+      passengers: 63,
+      from: 'BOS',
+      to: 'YHM'
+    },
+    UN634: {
+      passengers: 234,
+      from: 'YYZ',
+      to: 'BOS'
+    },
+    AC253: {
+      passengers: 234,
+      from: 'YHM',
+      to: 'BOS'
+    }
+  }
+
+
+  // √ -- Challenge #1 — how many passengers in this data set are landing in Boston (BOS) ?
+  function challenge1() {
+    var passengerCount = 0;
+
+    for (flight in flights) {
+      var destination = flights[flight].to;
+      var passengers = flights[flight].passengers;
+
+      if (destination === "BOS") {
+        passengerCount += passengers;
+      }
+    }
+    console.log(`There are ${passengerCount} passengers landing in Boston(BOS)`);
+  }
+  challenge1();
+
+
+
+  // √ -- Challenge #2 — how many passengers in this data set are either leaving from or landing in Toronto? YYZ
+  function challenge2() {
+    var passengerCount = 0;
+
+    for (flight in flights) {
+      var departure = flights[flight].from;
+      var destination = flights[flight].to;
+      var passengers = flights[flight].passengers;
+
+      if (departure === "YYZ" || destination === "YYZ" ) {
+        passengerCount += passengers;
+      }
+    }
+    console.log(`There are ${passengerCount} passengers flying through Toronto (YYZ)`);
+  }
+  challenge2();
+
+
+  // √ Challenge #3 — how many flights land outside Canada? (BOS, and AUS)
+  function challenge3() {
+    var flightCount = 0;
+
+    for (flight in flights) {
+      var destination = flights[flight].to;
+
+      if (destination != "YYZ" && destination != "YHM" && destination != "YQR") {
+        flightCount++;
+      }
+    }
+    console.log(`There are ${flightCount} flights landing outside of Canada`);
+  }
+  challenge3();
+
+
+  // √ Challenge #4 — how many air planes will go through Toronto? (YYZ)
+  function challenge4() {
+    var yyzFlights = 0;
+
+    for (flight in flights) {
+      var departure = flights[flight].from;
+      var destination = flights[flight].to;
+
+      if (departure === "YYZ" || destination === "YYZ") {
+        yyzFlights++;
+      }
+    }
+    console.log(`There are ${yyzFlights} planes going through Toronto (YYZ)`);
+  }
+  challenge4();
+
+
+
+  // √ Challenge #5 — How many Air Canada flights are there?
+  function challenge5() {
+    var airCanada = 0;
+
+    for (flight in flights) {
+      if (flight.indexOf("AC")>=0)  {
+        airCanada++;
+      }
+    }
+    console.log(`There are ${airCanada} Air Canada flights`);
+  }
+  challenge5();
+
+
+
+  // √ -- Challenge #6 — How many passengers are flying Air Canada and taking off from Toronto?
+  function challenge6() {
+    var passengerCount = 0;
+
+    for (flight in flights) {
+      var departure = flights[flight].from;
+      var passengers = flights[flight].passengers;
+
+      if (flight.indexOf("AC")>=0 && departure === "YYZ")  {
+        passengerCount += passengers;
+      }
+    }
+    console.log(`There are ${passengerCount} passengers flying Air Canada and taking off from Toronto`);
+  }
+  challenge6();
+
+
+  // √ -- Challenge #7 — How many passengers go through the Hamilton airport? (YHM)
+  function challenge7(){
+    var passengerCount = 0;
+    for (flight in flights) {
+      var departure = flights[flight].from;
+      var destination = flights[flight].to;
+      var passengers = flights[flight].passengers;
+
+      if (departure === "YHM" || destination === "YHM") {
+        passengerCount += passengers;
+      }
+    }
+    console.log(`There are ${passengerCount} passengers flying through Hamilton`);
+  }
+  challenge7();
+
+
+
+  // Challenge #8 — What is the average number of people who take a flight on each of the airlines?
+  function challenge8(){
+    var passengerCount = 0;
+    var flightCount = 0;
+
+    for (flight in flights) {
+      var passengers = flights[flight].passengers;
+      passengerCount += passengers;
+      flightCount++;
+    }
+
+    var passengerAverage = passengerCount / flightCount;
+    console.log(`The average number of people who take a flight is ${Math.floor(passengerAverage)}`);
+  }
+
+  challenge8();
+
+
+  function challenge8a(airline){
+    var passengerCount = 0;
+    var flightCount = 0;
+
+    for (flight in flights) {
+      var passengers = flights[flight].passengers;
+      var flightName = flight.indexOf(airline)>=0;
+
+      if (flightName)  {
+        passengerCount += passengers;
+        flightCount++;
+      }
+    }
+    var passengerAverage = passengerCount / flightCount;
+    console.log(`There are ${passengerAverage} passengers per ${airline} flight`);
+  }
+
+  challenge8a("AC");
+  challenge8a("WJ");
+  challenge8a("UN");
+
+
+  // Good luck!
+
+  </script>
+</body>
+</html>

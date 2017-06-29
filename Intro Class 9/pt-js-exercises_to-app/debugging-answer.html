@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debugging JavaScript</title>
+</head>
+<body>
+
+<div id="box">
+  Look at me! I'm a box!
+</div>
+
+<select id="tshirt-size">
+  <option value="1">Small</option>
+  <option value="2" selected>Medium</option>
+  <option value="3">Large</option>
+</select>
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+  
+  /*Bug 1: We have an extra parenthesis in the function declaration. 
+  * Delete it to fix the bug. */
+  
+  function printLocation(){
+    console.log("I am in Toronto!");
+  };
+
+  printLocation();
+
+
+  /* Bug2: the "D" should be lowercase in getElementById */
+  
+  var myBox = document.getElementById('box');
+  console.log(myBox);
+
+  
+  /* Bug 3: If you write 'return' on it's own line, JS assumes you
+  * mean 'return;' so it exits out of our function.  Move the opening 
+  * curly brace up to the same line as 'return' to fix this. */
+
+  function returnPerson (name) {
+      return {  
+          personsName : name
+      };
+  }
+
+  document.write(returnPerson("Joe"));
+
+
+  /* Bug 4: We've used a sigle = instead of == or === inside our
+  * condition. Remember, = assigns a variable and this is a 
+  * 'truthy' statement, so we get unexpected results.  */
+
+  var name = "Marge";
+  if (name === "Homer"){
+    console.log("D'oh!");
+  }
+
+  /* Bug 5: Using the var keyword inside the function effectively redeclares
+  * it in in a new scope, so it's undefined until we assign it the value 12.
+  * JavaScript interprets our code inside the function like this:
+ 
+  var num; //undefined
+  console.log(num);
+  var num = 12; //12
+  console.log(num);
+ 
+  * This is called "variable hoisting." Omit the var keyword inside the 
+  * function if you already have it declared outside. */
+  
+  var num = 56;
+  function calculateSomething() {
+      console.log(num);
+      num = 12;
+      console.log(num);
+  };
+
+  calculateSomething();
+
+  /* Bug 6: When using the second function declaration syntax (storing
+  	it inside a variable), it must be defined before you call it.  Move
+  	the function calls below the declaration to fix it. Similar to bug 5,
+  	this is called "function hoisting". */
+
+  // my functions
+  function sayHello(){
+    console.log("Hi there!")
+  }
+  var sayGoodbye = function(){
+    console.log("See you next time!")
+  }
+
+  // call functions here!
+  sayHello();
+  sayGoodbye();
+
+
+  /* Bug 7:  We assumed our form value was a number, but it is in 
+  * fact, a string. i.e. "1" instead of 1. To fix this bug, convert
+  * the value to a number before comparring. */
+
+  $('#tshirt-size').on('change', function(){
+    var tshirtSize = Number($('#tshirt-size option:selected').val());
+
+    if( tshirtSize === 1 ){
+      alert('Thanks for ordering a small!');
+    }
+  })
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery Events + Methods</title>
+  <!-- Load in Animate.css Library! -->
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+</head>
+<body>
+  <h1>We need more cowbell!</h1>
+  <div class="bell">
+    <span class="count"></span>
+  </div>
+
+  <audio src="cowbell.wav"></audio>
+
+  <style>
+  body {
+    background:#c0392b;
+  }
+
+  h1 {
+    text-transform: uppercase;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 100px;
+    color:white;
+    text-shadow:5px 5px 0 rgba(0,0,0,0.3);
+  }
+  .bell {
+    width:250px;
+    height:500px;
+    background:#f1c40f;
+    margin:20px auto;
+    border-radius: 20px;
+    position: relative;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+  }
+
+  span.count {
+    display: block;
+    width:100%;
+    text-align: center;
+    color:white;
+    font-family: sans-serif;
+    font-size: 70px;
+    padding-top: 200px;
+  }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+
+
+  // When the page is loaded, listen for a click on the bell
+  $(function(){
+    var count = 0;
+    var bell = $('.bell');
+
+    var clicks = $(bell).on('click', function(){
+      for (var i = 0; i < clicks.length; i ++){
+        count++;
+        console.log(count);
+        $('.count').text(count);
+      }
+    });
+
+    // 2. Animate the bell using animate.css (http://daneden.github.io/animate.css/) and the function below to to add the classes
+    $(bell).on('click', function(){
+      addAnimation($(bell), 'swing');
+
+      $('audio').trigger('play');
+    })
+
+  });
+  // when that happens do the following:
+
+
+
+
+
+  // 3. Bonus! Look into HTML5 the audio element and see how you can play cowbell.wav everytime you click the bell
+  // Have fun - add your own things to it!
+
+
+
+  var addAnimation = function(element, animationName) {
+    // this function take two params: the element and the class to add to that element.
+    // it uses jquery to add the class and then listens for the animation to END before taking the class off again
+    // We can use it like this: addAnimation( $('.bell'), 'swing' )
+    element.addClass(animationName + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+      element.removeClass(animationName);
+    });
+  }
+
+
+  </script>
+</body>
+</html>

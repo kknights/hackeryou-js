@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debugging JavaScript</title>
+</head>
+<body>
+
+  <div id="box">
+    Look at me! I'm a box!
+  </div>
+
+  <select id="tshirt-size">
+    <option value="1">Small</option>
+    <option value="2">Medium</option>
+    <option value="3">Large</option>
+  </select>
+
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script>
+
+  /*Bug 1: This code should log the text, "I am in Toronto!"
+  * instead of an an error */
+  function printLocation(){
+    console.log("I am in Toronto!");
+  };
+  printLocation();
+
+
+  /* Bug 2: This code should be logging something */
+  var myBox = document.getElementById('box');
+  console.log(myBox);
+
+
+
+  /* Bug 3: This function should print "Joe" to the page */
+  function returnPerson (name) {
+    return name;
+  }
+
+  document.write(returnPerson("Joe"));
+
+
+  /* Bug 4: We set name to "Marge", so we don't exepct this
+  * code to log "D'oh!", but it does. */
+
+  var name = "Marge";
+  if (name === "Homer") {
+    console.log("D'oh!");
+  };
+
+
+
+  /* Bug 5: We expect this code to log 56, then 12, but instead
+  * it's logging 'undefined' then 12 */
+
+  var num = 56;
+  function calculateSomething() {
+    console.log(num);
+    num = 12;
+    console.log(num);
+  };
+
+  calculateSomething();
+
+
+
+
+  /* Bug 6: Only one of our functions seems to be working. :( */
+
+
+
+  // my functions
+  function sayHello(){
+    console.log("Hi there!")
+  }
+
+  var sayGoodbye = function(){
+    console.log("See you next time!");
+  };
+
+  // call functions here!
+  sayHello();
+  sayGoodbye();
+
+  /* Bug 7: Our code should alert the thank you message if a small
+  * is selected but it's not working. */
+
+  $('#tshirt-size').on('change', function(){
+    var tshirtSize = $('#tshirt-size option:selected').val();
+
+    if (tshirtSize == 1){
+      console.log('Thanks for ordering a small!');
+    }
+  })
+
+  </script>
+
+</body>
+</html>

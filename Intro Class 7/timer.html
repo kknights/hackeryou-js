@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>timer</title>
+</head>
+<body>
+
+
+<p></p>
+<button>stop!</button>
+
+<script type="text/javascript">
+
+var count = 0;
+var text = document.querySelector('p');
+var button = document.querySelector('button');
+
+var clock = setInterval(function(){
+  count += 1;
+  text.innerText = count;
+  if (count === 5){
+    alert('five seconds!');
+  }
+}, 1000);
+
+
+button.addEventListener('click', function(){
+  clearInterval(clock);
+})
+
+
+
+</script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>my first objects</title>
+</head>
+<body>
+
+  <ul id="choker">
+    <li>test</li>
+  </ul>
+
+
+  <script>
+
+  var inventory = {
+    classic_90s : {
+      stock: 28,
+      price: 1000
+    },
+    velvet: {
+      stock:43
+    },
+    silk: {
+      stock: 10,
+      price: 5000
+    },
+    plastic: {
+      stock: 40,
+      price: 4000
+    },
+    slap_choker:{
+      stock: 5,
+      price: 4500
+    }
+  }
+
+  // var listItems = '';
+  //
+  //
+  // for (var item in inventory) {
+  //   listItems = listItems + `<li>${item}</li>`
+  //   // for (var data in inventory[item]){
+  //   //   console.log(data, item);
+  //   // }
+  // }
+
+
+  // var list = document.getElementById('choker');
+  // console.log(list.innerHTML);
+  //
+  // list.innerHTML = listItems;
+
+
+
+  var listItems = "";
+  var list = document.getElementById('choker');
+  for (var item in inventory){
+    var li = document.createElement('li');
+    li.innerHTML = item;
+    list.appendChild(li)
+  }
+
+  </script>
+
+
+
+
+</body>
+</html>

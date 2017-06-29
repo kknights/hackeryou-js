@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Variables and Operators</title>
+</head>
+<body>
+  <p>Don't forget to open your console to see the output!</p>
+  <script>
+    // Exercise 1:
+    // Create a variable to hold the user input from the prompt.
+    var favFood = prompt('What is your favorite food?');
+
+    // Log this sentence into the console:
+    // "My favorite food is -----." using the answer from the prompt
+    console.log(`My favorite food is ${favFood}`);
+
+    // Exercise 2:
+    // Give the variable the starting value of 0.
+    var numberOfCookies = 0;
+    console.log(`I started off with ${numberOfCookies} cookies.`);
+
+    // Add 1 to the current value of the variable,
+    numberOfCookies = numberOfCookies + 1;
+    console.log(`I baked a cookie. Now I have ${numberOfCookies}`);
+
+    // Subtract 1 from the current value of the variable,
+    // then (once again) re-assign the new value to the same variable.
+    numberOfCookies = numberOfCookies - 1;
+    console.log(`I just ate a cookie. Now I have ${numberOfCookies}`);
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery Methods Exercise!</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+  <box class="box box1"></box>
+  <box class="box box2"></box>
+  <box class="box box3"></box>
+  <box class="box box4"></box>
+
+
+
+  <style>
+
+    .pics {
+      clear: both;
+    }
+
+    .box {
+      width:20%;
+      float:left;
+      height:200px;
+      background:#3498db;
+      margin:2.5%;
+      transition:all 1s;
+    }
+
+    .box.open {
+      height:500px;
+      background:#c0392b;
+    }
+
+  </style>
+
+
+  <script>
+    $(function() {
+
+      // methods playground
+      // note: all visual changes and animations should be done with CSS transitions. Match the answer key
+
+      // 1. When the page loads, add a class of open to the third box
+      $('.box3').addClass('open');
+
+      // 2. after 3 seconds, remove it
+
+      setTimeout(function() {
+        $('.box3').removeClass('open');
+      },3000);
+
+      // toggle the class of open on the second box every 1 second
+
+      var boxToggle = setInterval(function() {
+        $('.box2').toggleClass('open');
+      },1000);
+
+      // after 6 seconds, stop the previous toggling
+      setTimeout(function() {
+        clearInterval(boxToggle);
+      },6000);
+
+    });
+
+
+
+  </script>
+
+</body>
+</html>

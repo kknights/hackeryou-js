@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Tick Tock</title>
+</head>
+<body>
+
+  <span class="tick on">Tick</span>
+  <span class="tock">Tock</span>
+
+  <style>
+    .tick, .tock {
+      display: block;
+      font-size:300px;
+      font-family: sans-serif;
+      text-align: center;
+      font-weight: 600;
+      display: none; /*hide them both*/
+    }
+
+    .tick.on, .tock.on {
+      display: block;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+    setInterval(function() {
+      $('.tick, .tock').toggleClass('on');
+    }, 1000);
+  </script>
+
+
+</body>
+</html>

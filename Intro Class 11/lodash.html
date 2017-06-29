@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>lodash</title>
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+
+
+<script>
+// var users = ["Kristen", "Drew", "Eddy", "Ryan", "Christopher", "Eunice", "Eva", "Heather"];
+// var ename = _.find(users, (name) => name.charAt(0) === 'E');
+
+var users = [
+  { name: 'Drew Minns', age: 32 },
+  { name: 'Jordan Deutsch', age: 64 },
+  { name: 'Trudy MacNabb', age: 64 },
+  { name: 'Little Miss Olive', age: 12 }
+];
+
+var sixtyFour = _.filter(users, { age: 64});
+console.log(sixtyFour);
+
+// var namesArray = users.map(()) => user.name0
+
+var namesArray = _.map(users, 'name');
+console.log(namesArray);
+
+// var users = ["drew", "ryan", "kristen", "drew", "kristen", "eva", "drew"];
+
+// var realUsers = _.uniqBy(users, function(o){
+//   return o.name;
+// });
+
+
+
+console.log(realUsers);
+
+
+
+</script>
+
+
+</body>
+</html>

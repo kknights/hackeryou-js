@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mad Libs</title>
+</head>
+<body>
+  <!-- Create a 'mad libs' game.
+
+  ## Step 1
+
+  prompt the user for 3 seperate words.
+  - A noun.
+  - An adjective.
+  - An adverb.
+
+  using these choices, `console.log` a mad lib where the prompts replace the blanks...
+
+  "After they did that, the king played chess on his brother's
+  __________(noun) and then combed his __________ (adjective)
+  hair with a comb made out of old fish bones.
+  Later, that same day, I saw the Monkey King dance __________
+  (adverb) in front of an audience of kangaroos and wombats."
+
+  ## Step 2
+
+  instead of generating a set mad lib, pick a random one between two options and console log the result.
+
+  you'll need to...
+
+  -get a random number between 1 and 2 (look back at using `Math` in javascript)
+  -`console.log` a different madlib if that number is 1, or if that number is 2
+
+  "The day I saw the Monkey King
+  __________(adverb) sing. It was one of the most
+  __________(adjective) days of the year.
+  Everyone brought their _________(noun) and was havin a great time!" -->
+
+
+
+  <script>
+
+  function madLibs(){
+    var noun = prompt("Enter a noun");
+    var adjective = prompt("Enter an adjective");
+    var adverb = prompt("Enter an adverb");
+    var randomNumber = Math.floor(Math.random() * 2);
+
+    if (randomNumber === 0) {
+      console.log("After they did that, the king played chess on his brother's " + noun + " and then combed his " + adjective + " hair with a comb made out of old fish bones. Later, that same day, I saw the Monkey King dance " + adverb + " in front of an audience of kangaroos and wombats.");
+
+    } else {
+      console.log("The day I saw the Monkey King " + adverb + " sing. It was one of the most " + adjective + " days of the year. Everyone brought their " + noun + " and was having a great time!");
+
+    }
+  }
+  madLibs();
+
+
+
+  </script>
+
+
+
+</body>
+</html>

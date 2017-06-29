@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+  <title>jQuery To Do List App</title>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+  <style>
+  ul, ul li {
+    cursor: move;
+    list-style-type: none;
+    margin: 25px 0 0 5px;
+    padding: 0;
+  }
+
+
+  .error {
+    outline: 1px solid red;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div class="jumbotron">
+    <div class="container">
+      <div class="page-header"> <h1>jQuery To Do List App</h1></div>
+      <form>
+        <input class="form-control input-lg" type="text" placeholder="Add an item...">
+      </form>
+      <ul>
+        <!-- To do items get added dynamically here -->
+      </ul>
+    </div>
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script>
+
+  // listen for submit event on form
+  $(function(){
+
+    $('form').on('submit', function (e) {
+      e.preventDefault();
+      var $input = $('input');
+      var text = $input.val();
+
+      // add the checkboxes
+      if (text.length > 0) {
+        $input.removeClass('error');
+        $('ul').append(`<li><span class="toDoItem"><span class="glyphicon glyphicon-unchecked"></span></span>
+        ${text} <a href="#"><span class="glyphicon glyphicon-trash"></span></a></li>`);
+      } else {
+        $input.addClass('error');
+      }
+      $input.val("");
+    });
+
+    $('ul').sortable();
+
+    // toggle the checkmarks
+    $('ul').on('click', '.toDoItem', function (){
+      $(this).find('span.glyphicon').toggleClass('glyphicon-unchecked glyphicon-check');
+    });
+
+
+    // remove from list
+    $('ul').on('click', 'a', function(e){
+      e.preventDefault();
+      $(this).parent().remove()
+    })
+
+
+
+
+
+
+  });
+
+
+
+  </script>
+</body>
+</html>

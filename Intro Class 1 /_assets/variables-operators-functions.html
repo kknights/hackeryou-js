@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  
+</head>
+<body>
+  <p>Don't forget to open your console to see the output!</p>
+  <script>
+  //EXERCISE 1
+  //1. Ask the user for their age.
+  //2. Store the answer and convert their age into seconds.
+  //3. Log into the console their age in seconds.
+  //4. Try concatenating the answer into a sentence: Your age in seconds is --.
+  function userAge() {
+    var currentAge = prompt("what is your age?");
+    var daysOld = currentAge * 365;
+    var ageInSeconds = daysOld * 24 * 60 * 60;
+    console.log(ageInSeconds);
+    console.log("Your age in seconds is " + ageInSeconds);
+  }
+  userAge();
+
+  //EXERCISE 2
+  //1. Create 3 variables that asks the user for three numbers.
+  //2. Use a function to find the maximum of the three.
+  //3. Log the answer into the console using the sentence: The maximum number is --.
+  function maximumNumber() {
+    var numberOne = prompt("enter a number");
+    var numberTwo = prompt("enter a number");
+    var numberThree = prompt("enter a number");
+    var maxNumber = Math.max(numberOne, numberTwo, numberThree);
+    console.log("The maximum number is " + maxNumber + ".");
+  }
+  maximumNumber();
+
+  // EXERCISE 3
+  // Write some code that finds the youngest person out of three ages.
+  // Log into the console the sentence: The youngest person is -- years old.
+  //
+  function youngestPerson(){
+    var personOne = prompt("What's your age");
+    var personTwo = prompt("What's your age");
+    var personThree = prompt("What's your age");
+    var youngest = Math.min(personOne, personTwo, personThree);
+    console.log("The youngest person is " + youngest + " years old");
+  }
+  youngestPerson();
+
+
+  // EXERCISE 4
+  // Write some code that returns a random number between 1 and 100.
+  // Log into the console the sentence: Your random number is --.
+  // Bonus points for returning a whole number (no decimals).
+  // Hint: Look into Math.random and Math.round
+  function getRandom(min, max) {
+    return Math.random(1, 100);
+  }
+
+  var randomNumber = getRandom();
+  var roundedNumber = Math.round(randomNumber);
+  console.log("Your random number is " + roundedNumber);
+
+  // // EXERCISE 5
+  // Write some code that adds sales tax to a price.
+  // Log into the console the sentence: "The total price with tax is $--."
+  // Bonus points if you can get it to show 2 decimals. (Google it!)
+
+function addSalesTax(){
+  var price = 19.99;
+  var salesTax = 0.13;
+  var totalPrice = price + (price * salesTax);
+  totalPrice = totalPrice.toFixed(2);
+  console.log("The total price with tax is " + "$" + totalPrice + ".");
+}
+  addSalesTax();
+
+
+  </script>
+</body>
+</html>

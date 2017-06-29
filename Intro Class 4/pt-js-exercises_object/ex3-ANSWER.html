@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> ✓ ex3</title>
+</head>
+<body>
+  
+  <script>
+      var fruits = {
+        oranges : 3,
+        apples : 2,
+        grapes : 123,
+        bananas : 13,
+        plumbs : 3
+      }
+
+      var total = 0;
+
+      for (fruit in fruits) {
+        var total = total + fruits[fruit];
+        console.log("There are " + fruits[fruit] + " " + fruit);
+        console.log("That makes " + total + " so far.");
+      }
+  </script>
+
+</body>
+</html>

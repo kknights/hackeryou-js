@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ex3</title>
+</head>
+<body>
+
+  <script>
+  var fruits = {
+    oranges : 3,
+    apples : 2,
+    grapes : 123,
+    bananas : 13,
+    plumbs : 3
+  }
+
+  var total = 0;
+
+  for (fruit in fruits) {
+    var total = total + fruits[fruit];
+
+    console.log("There are " + fruits[fruit] + " " + fruit);
+    console.log("That makes " + total + " so far.");
+  }
+
+  // using a for in loop, loop though all the fruits, logging the number and the fruit name
+  // after each fruit, tally the total so far and log that
+  // your console should look like this:
+
+  // There are 3 oranges
+  // That makes 3 so far.
+  // There are 2 apples
+  // That makes 5 so far.
+  // There are 123 grapes
+  // That makes 128 so far.
+  // There are 13 bananas
+  // That makes 141 so far.
+  // There are 3 plumbs
+  // That makes 144 so far.
+  </script>
+
+</body>
+</html>

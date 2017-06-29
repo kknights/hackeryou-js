@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>class 6</title>
+</head>
+<body>
+
+  <ul id="app"></ul>
+
+  <script>
+
+
+  var mentors = [{
+    firstName: "Jordan",
+    lastName: "Laser",
+    age: 42
+  }, {
+    firstName: "Garrett",
+    lastName: "Levine",
+    age: 28
+  }, {
+    firstName: "Drew",
+    lastName: "Minns",
+    age: 22
+  }, {
+    firstName: "Trudy",
+    lastName: "MacNabb",
+    age: 3
+  }];
+
+
+
+  var coolNames = mentors.map(function(mentor){
+    // return mentor.firstName + 'ing' + ' '  + mentor.lastName + "ing";
+    return `${mentor.firstName}ing ${mentor.lastName}ing`;
+  });
+  console.log(coolNames);
+
+  var html ="";
+
+  mentors.forEach(function(i){
+    html += `<li>${i.firstName} ${i.lastName}</li>`;
+  });
+
+  var underThirty = mentors.filter(function(person){
+    return person.age <= 30;
+  });
+
+
+
+
+  var ages = mentors.reduce(function(prev, current) {
+    return prev + current.age;
+  }, 0);
+
+  console.log(ages);
+
+
+
+  // console.log(underThirty);
+
+
+
+
+  document.getElementById('app').innerHTML = html;
+
+
+
+
+
+  //
+  // var myBasket = {
+  //   apples: 1,
+  //   addApples : function (){
+  //     this.apples++;
+  //   },
+  //   eatApples  : function() {
+  //     this.apples--;
+  //   }
+  // }
+
+
+  // var mario = {
+  //   walk: function(){
+  //
+  //   },
+  //   jump: function(){
+  //
+  //   },
+  //   big: false;
+  //   location: {
+  //     x: 0,
+  //     y:0,
+  //   }
+  // }
+
+
+
+
+  // var xena = {
+  //   equipment: ['sword', 'shield'],
+  //   energy: 100,
+  //   location: {
+  //     x: 0,
+  //     y: 0
+  //   },
+  //   warCry: function () {
+  //     console.log("rawwwwwwwwwwwwwr");
+  //   },
+  //
+  //   strike: function(decreaseEnergy){
+  //     this.energy -= decreaseEnergy;
+  //     console.log(this.energy);
+  //   },
+  //
+  //   heal: function(increaseEnergy){
+  //     this.energy += increaseEnergy;
+  //     console.log(this.energy);
+  //   },
+  //
+  //   walk: function (x, y){
+  //     this.location.x += x;
+  //     this.location.y += y;
+  //   },
+  //
+  //   pickUpEquiment: function(thing){
+  //     this.equipment.push(thing);
+  //   };
+
+
+
+
+
+
+
+
+
+  </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Function</title>
+</head>
+<body>
+
+  <script>
+
+    // Write a function `charIsVowel(c)` that takes a character (i.e. a string of length 1) as argument and returns true if it is a vowel, false otherwise. E.g. `charIsVowel("b")` returns `false`.
+
+    var charIsVowel = function(c) {
+      var c = c.toLowerCase();
+      if(c === "a" || c === "e" || c === "i" || c === "o" || c === "u") {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    // Later we will learn about arrays and we can do this:
+    /*
+
+    var charIsVowel = function(c) {
+      var c = c.toLowerCase();
+      var vowels = ['a','e','i','o','u'];
+
+      if(vowels.indexOf(c) >= 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
+
+    }
+
+
+    */
+
+    // once done, create seperate if statements for the following and log "yes it is a vowel / no it isn't a vowel"
+
+    // Check if capital A is a vowel
+
+
+
+    if(charIsVowel('A')) {
+      console.log("a is a vowel");
+    }
+
+    // check if c isn't s vowel (HINT: Remember opposites with !)
+    if(!charIsVowel('c')) {
+      console.log("c isn't a vowel");
+    }
+
+    // check if lowercase e AND uppercase O is a vowel
+
+    if(charIsVowel('e') && charIsVowel('O')) {
+      console.log("e and O are vowels");
+    }
+
+    // check if either x or u is a vowel
+    if(charIsVowel('x') || charIsVowel('u')) {
+      console.log("either x or u is a vowel");
+    }
+
+    // check that h isn't a vowel and e is a vowel
+    if(!charIsVowel('h') && charIsVowel('e')) {
+      console.log("h isn't and e is a vowel");
+    }
+
+  </script>
+
+  <p>Nothing to see here! Open up your console to see what JavaScript is doing.</p>
+</body>
+</html>

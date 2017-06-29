@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>setTimeout example</title>
+</head>
+<body>
+
+  <p>after 2.5 seconds, you should see an alert</p>
+
+  <script>
+
+    setTimeout(function() {
+      alert("Hey, it's been 2.5 seconds!");
+    },2500);
+
+    var counter = 0;
+    var timer = setInterval(function(){
+      counter++;
+      console.log(counter);
+    },1000);
+
+    setTimeout(function(){
+      clearInterval(timer);
+    },5000);
+
+  </script>
+
+</body>
+</html>

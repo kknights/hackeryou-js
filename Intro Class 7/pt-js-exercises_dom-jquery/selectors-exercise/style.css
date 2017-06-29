@@ -1,0 +1,449 @@
+/* Normalize */
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block;}audio,canvas,video{display:inline-block;}audio:not([controls]){display:none;height:0;}[hidden]{display:none;}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}a:focus{outline:thin dotted;}a:active,a:hover{outline:0;}h1{font-size:2em;}abbr[title]{border-bottom:1px dotted;}b,strong{font-weight:700;}dfn{font-style:italic;}mark{background:#ff0;color:#000;}code,kbd,pre,samp{font-family:monospace, serif;font-size:1em;}pre{white-space:pre-wrap;word-wrap:break-word;}q{quotes:\201C \201D \2018 \2019;}small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}sup{top:-.5em;}sub{bottom:-.25em;}img{border:0;}svg:not(:root){overflow:hidden;}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em;}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}button,input{line-height:normal;}button,html input[type=button],/* 1 */
+input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}button[disabled],input[disabled]{cursor:default;}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none;}textarea{overflow:auto;vertical-align:top;}table{border-collapse:collapse;border-spacing:0;}body,figure{margin:0;}legend,button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
+
+/* Clearfix */
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+
+/* Border box everything */
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+/* 
+	Hacker you red: #d12026
+*/ 
+
+/* =============================================================================
+   								Page Defaults and Setup 
+   ========================================================================== */
+
+body {
+	background:url(images/white_tiles.png);
+	font-size:14px;
+	line-height:1.2;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color:#444141;
+}
+
+h1,h2,h3,h4,h5,h6 { font-family: "Oswald","Helvetica Neue", Helvetica, Arial, sans-serif;  font-weight:normal; color:#000;}
+h1 { font-size:40px; }
+h2 { font-size:35px; }
+h3 { font-size:25px; }
+h4 { font-size:20px; }
+h5 { font-size:15px; }
+h6 { font-size:13px; }
+
+a { color:#d12026; text-decoration: none;}
+a:hover {text-decoration: underline;}
+.red {color:#d12026; }
+
+.wrapper {
+	max-width: 940px;
+	margin:0 auto;
+	background:white;
+	box-shadow: 0 0 10px #D1D1D1;
+}
+
+.section {
+	width:100%;
+	clear:both;
+	padding:2%;
+	/* Each section has a border on the top and bottom */
+	border-bottom:1px solid #d7d7d7;
+	border-top:1px solid #fff;
+	/* 
+		Now we get into the two gradients at the top and bottom of each section
+		Note I am only doing webkit gradients at the moment
+	*/
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#fefefe 36%,#ededed 100%),
+				-webkit-linear-gradient(top,  #f2f2f2 0%,#fefefe 64%,#ffffff 100%);
+	/* Size it 100% wide by 75px high */
+	background-size: 100% 75px;
+
+	/* position the two gradients */
+	background-position:	bottom left,
+							top left;
+	/* Set them both to no-repeat */						
+	background-repeat: no-repeat;
+}
+.section:first-child {
+	/* For the first section, we dont need the top gradient */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#fefefe 36%,#ededed 100%);
+	background-position: bottom left;
+	background-repeat: no-repeat;	
+}
+	.section h2 {
+		margin: 0;
+		text-transform: uppercase;
+	}
+
+/*
+	Header Styles
+*/ 
+.header {
+	max-width: 940px;
+	margin:0 auto;
+	border-top:3px solid #D12026;
+}
+	.header h1 {
+		text-transform: uppercase;
+		float:left;
+	}
+		.header h1 a {
+			color:black;
+			text-shadow:1px 1px 0 #fff;
+		}
+			.header h1 a:hover {
+				text-decoration: none;
+			}
+
+	.header ul {
+		float:right;
+		margin-top:40px;
+	}
+		.header ul li {
+			display: inline;
+		}
+			.header ul li a {
+				color:black;
+				font-family: 'Oswald';
+				font-size:20px;
+				text-transform: uppercase;
+				padding:5px 10px
+			}
+				.header ul li a:hover {
+					background:#d12026;
+					color:white;
+					text-shadow:1px 1px 0 #000;
+					text-decoration: none; /*Take the underline off */
+				}
+
+/*
+	About Styles
+*/ 
+
+.about {
+
+}
+	.about img {
+		float:left;
+		margin-right:40px;
+	}
+
+	.about h2 {
+		font-size:46px;
+		margin:0;
+		text-transform: none;
+	}
+
+	.about ul {
+		padding:0;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.about ul li {
+		list-style:none;
+		width:22%;
+		display: inline-block;
+		color:#000;
+		padding-bottom:8px;
+	}
+
+/*
+	Work Section
+*/
+.work {
+}
+	.workWrapper {
+		width:70%;
+		float:left;
+	}
+		.workWrapper h2 {
+			float:left;
+		}
+		.workWrapper p.desc {
+			float:left;
+			margin: 0;
+			border-left: 3px solid #d12026;
+			padding-left: 10px;
+			margin-left: 20px;
+			padding:10px;
+			position: relative;
+			top:4px;
+		}
+	
+	.blocks {
+		clear:both;
+		margin-top: 20px;
+		float:left;
+		padding-right:3%;
+		width:100%;
+	}
+		.block {
+			position: relative;
+			width:49%;
+			float:left;
+			margin-bottom: 10px;
+		}
+			.block1,.block3 {margin-right:1%;}
+			.block2,.block4 {margin-left:1%;}
+			
+			.block img {
+				width:100%;
+			border: 1px solid #000;
+			}
+
+			.block h4 {
+				position: absolute;
+				top: 30px;
+				right:0;
+				background:white;
+				border-left: 3px solid #d12026;
+				padding:4px 6px;
+				font-size: 16px;
+				text-transform: uppercase;
+			}
+
+	.tweets {
+		float:left;
+		width:30%;
+	}
+		.tweets iframe {
+			height:410px; /* Hard set the twitter iframe height becaue twitters widget is being dummbbbb */
+		}
+
+/*
+	Skills Section
+*/
+.skills {
+
+}
+	.skills h2 {
+		float:left;
+		width:20%;
+		text-align: center;
+		text-transform: uppercase;
+		padding-top: 90px;
+	}
+
+	ul.skillMeter {
+		float:left;
+		width:80%;
+		list-style:none;
+		border-left: 3px solid #d12026;
+		padding: 0;
+	}
+		ul.skillMeter li {
+			color:white;
+			border-radius: 0 3px 3px 0;
+			padding:5px;
+			margin:10px 0;
+			-moz-background-clip: padding;
+			-webkit-background-clip: padding-box;
+			background-clip: padding-box;
+			background-color: #e5634d;
+			border-top: 1px solid #247ab6;
+			border-right: 1px solid #247ab6;
+			border-bottom: 1px solid #247ab6;
+			background-image: -webkit-linear-gradient(90deg, #00a5ea 0%, #14baff 100%);
+			font-size:16px;
+			text-shadow: 1px 1px 0 #0a74a1;
+			/* This is how we tell the hover state to animate */
+			-webkit-transition: width .7s;
+			width:40%;
+		}
+		
+		/* Define how good you are here */
+		.skills:hover ul.skillMeter li.skill1 { width: 107%; }
+		.skills:hover ul.skillMeter li.skill2 { width: 72%; }
+		.skills:hover ul.skillMeter li.skill3 { width: 87%; }
+		.skills:hover ul.skillMeter li.skill4 { width: 92%; }
+		.skills:hover ul.skillMeter li.skill5 { width: 102%; }
+		.skills:hover ul.skillMeter li.skill6 { width: 79%; }
+		.skills:hover ul.skillMeter li.skill6 { width: 100%; }
+		.skills:hover ul.skillMeter li.skill7 { width: 90%; }
+
+		.axisLabels {
+			display: block;
+			width:80%;
+			float:right;
+		}
+			.axisLabels span {
+				display: block;
+				width:33.3%;
+				float: left;
+				color:#a6a6a6;
+			}
+				.axisLabels span.awesome {
+					text-align: center;
+				}
+				.axisLabels span.hero {
+					text-align: right;
+				}
+
+/* 
+	Process page
+*/
+
+.process {
+	width:100%;
+	position: relative;
+	margin:0 auto;
+	max-width:	940px;
+	min-height:440px; /* Set a height on it because all the elements are positioned absolutely  and therefore don't take up any space*/
+}
+	.process h2 {
+		text-align: center;
+		border-bottom: 3px solid #d12026;
+		padding-bottom: 15px;
+		margin-bottom: 20px;
+	}
+
+
+	.processBox {
+		width:100%;
+		position: relative;
+	}
+		.processBox h3 {
+			text-transform: uppercase;
+			padding-top:100px;
+			margin-top: 50px;
+		}
+		.processBox1 h3 { background:url(images/design.png) top center no-repeat; }
+		.processBox2 h3 { background:url(images/develop.png) 45px 20px no-repeat; }
+		.processBox3 h3 { background:url(images/test.png) top center no-repeat; }
+		.processBox4 h3 { background:url(images/deploy.png) top center no-repeat; }
+
+		.processBox .ring {
+			width:235px;
+			height: 235px;
+			position: relative;
+			border:3px solid red;
+			position: absolute;
+			border-radius: 50%;
+			text-align: center;
+			background: white;
+
+		}
+
+	.processBox1 .ring { left: 0; border-color:#247ab6;  box-shadow: inset 0 0 200px #BDE4FF;}
+	.processBox2 .ring { left:25%; border-color:#ee1746; box-shadow: inset 0 0 200px #FFADBF;}
+	.processBox3 .ring { left:50%; border-color: #4b0c81;box-shadow: inset 0 0 200px #DCB3FF;}
+	.processBox4 .ring { left:75%; border-color:#ffc000; box-shadow: inset 0 0 200px #FFDE7B;}
+
+	.processBox .processBlurb {
+		position: absolute;
+		top:250px;
+		text-align: center;
+		display: none;
+	}
+
+	.processBox:hover {
+		z-index: 999;
+		cursor: pointer;
+	}
+
+
+	.processBox:hover .processBlurb {
+		z-index: 999;
+		display:block;
+	}
+
+/* 
+	Contact Section 
+*/
+
+.contact {
+
+}
+	.contact h2 {
+		float:left;
+	}
+	.contact p.desc {
+		float:left;
+		margin: 0;
+		border-left: 3px solid #d12026;
+		padding-left: 10px;
+		margin-left: 20px;
+		padding:10px;
+		position: relative;
+		top:4px;
+	}
+
+	.contact form {
+		clear:both;
+		margin-top: 10px;
+		float: left;
+		width:100%;
+	}
+
+	.contactRight {
+		float:left;
+		width:50%;
+		padding-left: 2%;
+	}
+
+	.contactLeft {
+		float:left;
+		width:50%;
+		padding-right: 2%;
+	}
+
+	.contact form label {
+		width:100%;
+		display:block;
+		font-size: 22px;
+		font-family: "Oswald";
+		margin-bottom: 10px;
+
+	}
+	.contact form input, .contact form textarea {
+		padding:10px;
+		border:1px solid #ee1746;
+		width:100%;
+		margin-bottom: 10px;
+		border-radius: 5px;
+	}
+	.contact form input:focus, .contact form textarea:focus {
+		border:1px solid #004297;
+		outline:0;
+	}
+
+	.contact form textarea {
+		height:122px;
+	}
+
+	.contact form input[type=submit] {
+		width:auto;
+		float:right;
+		color: #fff;
+		text-shadow: 1px 1px 0 #9b0223;
+		-moz-background-clip: padding;
+		-webkit-background-clip: padding-box;
+		background-clip: padding-box;
+		background-color: #04487a;
+		border: 1px solid #780820;
+		background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGxpbmVhckdyYWRpZW50IGlkPSJoYXQwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjEwMCUiIHgyPSI1MCUiIHkyPSIwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkMTE0M2QiIHN0b3Atb3BhY2l0eT0iMSIvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMDMyNWMiIHN0b3Atb3BhY2l0eT0iMSIvPgogICA8L2xpbmVhckdyYWRpZW50PgoKPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+);
+		background-image: -moz-linear-gradient(90deg, #d1143d 0%, #f0325c 100%);
+		background-image: -o-linear-gradient(90deg, #d1143d 0%, #f0325c 100%);
+		background-image: -webkit-linear-gradient(90deg, #d1143d 0%, #f0325c 100%);
+		background-image: linear-gradient(90deg, #d1143d 0%, #f0325c 100%);
+	}
+
+
+/* 
+	Footer
+*/
+.footer {
+	text-align: center;
+	font-size:11px;
+}
