@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Project 2 - Flashcards</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" href="styles.css">
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> -->
-
 </head>
 <body>
 
   <section class="wrapper">
 
-    <h2 class="flashcard_title_es" lang="es"><i class="material-icons translate" title="click me">translate</i> ¿Qué significa &hellip; ?</h2>
-    <h2 class="flashcard_title_en"><i class="material-icons translate">translate</i> What does this mean &hellip; ?</h2>
+    <h2 class="flashcard_title_es" lang="es"><i class="material-icons translate animated tada infinite" title="click me">translate</i> ¿Qué significa &hellip; ?</h2>
+    <h2 class="flashcard_title_en"><i class="material-icons translate animated tada infinite">translate</i> What does this mean &hellip; ?</h2>
     <p class="flashcard_instructions">Select the correct translation from the list below</p>
 
 
@@ -66,13 +65,15 @@
             <label for="second-card_option3">to shop, to spend money</label>
           </li>
         </ul>
+        <p class="flashcard_message" lang"es"></p>
+
       </div>
 
 
       <!-- flashcard 03 -->
       <div class="flashcard is-inactive" data-card="card_03">
         <h3 class="flashcard_word" lang"es">
-            el saltamontes
+          el saltamontes
           <i class="material-icons play" aria-hidden="true">play_circle_outline</i>
           <audio src="audio/el_saltamontes.mp3"></audio>
         </h3>
@@ -91,7 +92,27 @@
             <label for="second-card_option3">a grasshopper</label>
           </li>
         </ul>
+        <p class="flashcard_message" lang"es"></p>
+
       </div>
+
+
+      <!-- flashcard 04 -->
+      <div class="flashcard is-inactive" data-card="card_04">
+        <h3 class="flashcard_word" lang"es">
+          ¡Felicidades!
+          <i class="material-icons play" aria-hidden="true">play_circle_outline</i>
+          <audio src="audio/felicidades.mp3"></audio>
+        </h3>
+
+        <p class="success">Congratulations, you've gotten them all correct 🙌</p>
+
+      </div>
+
+
+
+      <button id="page-reload">Reload flashcards</button>
+
     </section>
 
 
@@ -109,6 +130,6 @@
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="script-v3.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
