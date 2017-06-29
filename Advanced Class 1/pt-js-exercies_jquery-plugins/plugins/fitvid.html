@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FitVid</title>
+  <style>
+    body {
+      background: #ffc600;
+    }
+    .wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <p>I love dogs</p>
+    <iframe width="420" height="315" src="http://www.youtube.com/embed/sMmjSE_d6J0" frameborder="0" allowfullscreen></iframe>
+    <p>I really love dogs!</p>
+  </div>
+
+  <!-- Load in jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="jquery.fitvids.js"></script>
+  <!-- Go get fitvids -->
+
+  <script>
+    $(function(){
+      $(".wrapper").fitVids();
+    });
+  </script>
+</body>
+</html>

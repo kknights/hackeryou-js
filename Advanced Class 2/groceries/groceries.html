@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grocery List</title>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <form class="item">
+      <h1>Grocery Getter 2000</h1>
+      <input type="text" name="itemName" placeholder="Grocery Name">
+      <label for="heading">
+        <input type="checkbox" name="heading" class="heading" id="heading">
+        Heading
+      </label>
+      <input type="submit" value="Add Grocery Item">
+    </form>
+
+    <ul class="groceries sortable">
+      <li class="heading">Basics</li>
+      <li>Milk</li>
+      <li>Eggs</li>
+      <li>Bread</li>
+      <li class="heading">Kids</li>
+      <li>Koolaid</li>
+      <li>Popsicles</li>
+    </ul>
+
+    <ul class="got sortable">
+      <li class="heading">Done</li>
+      <li>one</li>
+      <li>two</li>
+      <li>three</li>
+    </ul>
+
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script>
+
+  // first we create an app namespace
+  var app = {};
+
+  app.addItem = function(itemName){
+    // 1. write the code to create a list item and add it to the groceries list
+    // You can test it from the browser by running app.addItem('Carrots');
+    var li = $("<li>"+itemName+"</li>");
+    $('ul.groceries').append(li);
+  };
+
+  app.addHeading = function(headingName) {
+    // 2. write the code to create a list item header and add it to the groceries list
+    // You can test it from the browser by running app.addHeading('Vegetables');
+    var listHeader = $("<li class='heading'>"+headingName+"</li>");
+    $('ul.groceries').append(listHeader);
+  };
+
+  app.init = function() {
+    // listen for the "submit" event on the form.
+    $('form.item').on('submit',function(e) {
+      // 3. stop the form from submitting and refreshing the page
+      e.preventDefault();
+
+      // 4. Do stuff to make it go into the form
+      var checkbox = $('input.heading');
+      var newListItem = $('.item input[type="text"]').val();
+
+      if ($(checkbox).is(':checked')) {
+        app.addHeading(newListItem);
+      } else {
+        app.addItem(newListItem);
+      }
+    });
+
+
+
+    // 5. make it sortable with jQuery UI
+    $('ul.groceries, ul.got').sortable({
+      connectWith: ".sortable"
+    });
+
+  };
+
+  $(function() {
+    // on document ready we run app.init
+    app.init();
+  });
+  </script>
+
+
+</body>
+</html>

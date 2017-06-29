@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond&subset=latin-ext');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-family: 'EB Garamond', serif;
+}
+
+
+/*icons*/
+i {
+  display: block;
+  color: #ed616e;
+}
+i:hover {
+  color: #428e36;
+  cursor: pointer;
+}
+i.translate {
+  vertical-align: middle;
+  margin-top: -5px;
+  cursor: help;
+}
+i.play {
+  vertical-align: bottom;
+}
+
+/*helper classes*/
+.is-correct {
+  font-weight: bold;
+  color: #428e36;
+}
+.is-incorrect {
+  color: #ed616e;
+  text-decoration: line-through;
+}
+.is-active {
+  display: block;
+}
+.is-inactive {
+  display: none;
+}
+
+/*flashcards*/
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/*titles*/
+.flashcard_title_en {
+  margin: 0 0 0px ;
+  padding: 0;
+  font-size: 30px;
+  display: none;
+}
+.flashcard_title_en.is-active {
+  display: block;
+}
+.flashcard_title_es {
+  margin: 0 0 0px ;
+  padding: 0;
+  font-size: 30px;
+}
+.flashcard_title_es.is-active {
+  display: block;
+}
+
+.flashcard02,
+.flashcard03,
+.flashcard01.is-inactive,
+.flashcard02.is-inactive,
+.flashcard03.is-inactive {
+  display: none;
+}
+
+.flashcard {
+  background: url('blank-index-card.jpg') no-repeat;
+  width: 500px;
+  height: 300px;
+  padding-top: 5px;
+}
+
+.flashcard > div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: top;
+  flex-direction: column;
+}
+
+.flashcard_instructions {
+  margin: 10px 0 40px;
+}
+
+.flashcard_word {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+}
+
+.flashcard_choices {
+  font-size: 16px;
+  line-height: 16px;
+  padding: 0;
+  margin: 33px 0 0 40px;
+}
+
+.flashcard_choices li {
+  list-style-type: none;
+  margin-bottom: 7px;
+}
+
+.flashcard_message {
+  align-self: center;
+  margin-top: 17px;
+}
+
+/*next flashcard*/
+.flashcard_next {
+  display: block;
+  align-self: flex-end;
+  clear: both;
+  text-decoration: none;
+  font-size: 20px;
+  color: #2e322d;
+}
+
+.flashcard_next {
+  display: none;
+  margin: 9px 20px 0;
+}
+
+.flashcard_next.is-active {
+  display: block;
+}

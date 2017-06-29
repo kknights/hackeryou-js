@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grocery List</title>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <form class="item">
+      <h1>Grocery Getter 2000</h1>
+      <input type="text" name="itemName" placeholder="Grocery Name">
+      <label for="heading">
+        <input type="checkbox" name="heading" class="heading" id="heading">
+        Heading
+      </label>
+      <input type="submit" value="Add Grocery Item">
+    </form>
+
+    <ul class="groceries connected">
+      <li class="heading">Basics</li>
+      <li>Milk</li>
+      <li>Eggs</li>
+      <li>Bread</li>
+      <li class="heading">Kids</li>
+      <li>Koolaid</li>
+      <li>Popsicles</li>
+    </ul>
+
+    <ul class="got connected">
+      <li class="heading">Done</li>
+      <li>one</li>
+      <li>two</li>
+      <li>three</li>
+    </ul>
+
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script>
+    var app = {};
+
+    app.addItem = function(itemName){
+      var li = $("<li>"+itemName+"</li>");
+      $('ul.groceries').append(li);
+    };
+
+    app.addHeading = function(headingName) {
+      var li = $("<li>"+headingName+"</li>").addClass('heading');
+      $('ul.groceries').append(li);
+
+    };
+
+
+    app.init = function() {
+      // listen for the "submit" event on the form.
+      $('form.item').on('submit',function(e) {
+        // stop the form from submitting
+        e.preventDefault();
+
+        // grab the name of the heading from the input
+        var nameOfItem = $('input[name="itemName"]').val();
+
+        // check if we need to add a normal item or a heading
+        if( $('input.heading').is(':checked') ) {
+          app.addHeading(nameOfItem);
+        }
+        else {
+          app.addItem(nameOfItem);
+        }
+
+        // clear the inputs
+        $('input[name="itemName"]').val('');
+      });
+
+      // make it sortable with jQuery UI
+      $('ul.groceries, ul.got').sortable({
+        connectWith: ".connected"
+      });
+    };
+
+    $(function() {
+      app.init();
+    });
+  </script>
+
+
+</body>
+</html>

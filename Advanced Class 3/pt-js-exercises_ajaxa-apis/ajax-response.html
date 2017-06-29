@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Logging an AJAX Response</title>
+</head>
+<body>
+	<p>Open up your console to the response object.</p>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+	$(function(){
+
+		$.ajax({
+			url: 'http://api.wunderground.com/api/61f0a55cb00602dc/conditions/q/Ontario/Toronto.json',
+			type: 'GET',
+			dataType: 'jsonp',
+			success: function(response){
+				console.log(response)
+			}
+		});
+	});
+	</script>
+</body>
+</html>

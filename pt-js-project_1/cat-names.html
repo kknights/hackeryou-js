@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cat Name Generator</title>
+</head>
+<body>
+
+
+  <script>
+
+  var prefix = ["Ms.", "Miss.", "Mrs.", "Mr.", "Master", "Reverend", "Pastor", "Father", "Doctor", "Attorney", "Professor", "Honorable", "President", "Governor", "Coach", "Officer", "Sister", "Brother", "Superintendent", "Representative", "Senator", "Ambassador", "Treasurer", "Secretary", "Private", "Corporal", "Sargent", "Major", "Captain", "Commander", "Lieutenant", "Lieutenant Colonel", "Colonel", "General"];
+
+  var adjectives = [  "Kindly", "Oceanic", "Premium", "Flagrant", "Rotten", "Mammoth", "Violent", "Rural", "Cluttered", "Incandescent", "Elderly", "Offbeat", "True", "Unadvised", "Proud", "Wicked", "Overjoyed", "Witty", "Nosy", "Glossy", "Accessible", "Half", "Horrible", "Probable", "Glib", "Dull", "Draconian", "Chunky", "Unusual", "Graceful", "Caring", "Needy", "Silent", "Short", "Mature", "Abusive", "Substantial", "Tiresome", "Daily", "Boundless", "Tasteless", "Six", "Stiff", "Clumsy", "Unaccountable", "Lewd", "Gamy", "Ultra", "Obedient", "Unequal", "Domineering", "Mere", "Hurt", "Dusty", "Spurious", "Terrible", "Windy", "White", "Homeless", "Soggy", "Obsolete", "Complete", "Efficient", "Numerous", "Outrageous", "Outstanding", "Auspicious", "Dark", "Breakable", "Combative", "Ragged", "Torpid", "Mindless", "Sad", "Wise", "Yellow", "Nasty", "Broad", "Splendid", "Savory", "Inconclusive", "Likeable", "Cloistered", "Imperfect", "Concerned"];
+
+  var meat = ["pants", "pizza hog", "face","ears", "wisperer", "paws", "meows", "wiskers", "dots", "wiggles", "glasses", "freckles", "princess", "prince"];
+
+  var suffix = ["— in absentia","the third", "XXIV", "(B.Comm)","ReMax Plus+", "RIP", "twice removed", "VII", "(M Div.)"];
+
+
+  var random = function(arr) {
+    var num = arr.length;
+    var random = Math.floor(Math.random() * arr.length);
+    return arr[random];
+  }
+
+  var comeUpWithName = function() {
+    var name = random(prefix) + " " + random(adjectives) + " " + random(meat) + " " + random(suffix);
+
+    return "You should name your cat: " + name;
+
+    console.log(name);
+  }
+
+  comeUpWithName();
+  
+
+
+  </script>
+
+
+</body>
+</html>

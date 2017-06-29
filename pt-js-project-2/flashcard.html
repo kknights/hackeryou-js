@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project 2 - Flashcards</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> -->
+
+</head>
+<body>
+
+  <section class="wrapper">
+
+    <h2 class="flashcard_title_es" lang="es"><i class="material-icons translate" title="click me">translate</i> ¿Qué significa &hellip; ?</h2>
+    <h2 class="flashcard_title_en"><i class="material-icons translate">translate</i> What does this mean &hellip; ?</h2>
+    <p class="flashcard_instructions">Select the correct translation from the list below</p>
+
+
+    <section class="flashcards">
+
+      <!-- flashcard 01 -->
+      <div class="flashcard is-active" data-card="card_01">
+        <h3 class="flashcard_word" lang"es">
+          adormecedor
+          <i class="material-icons play" aria-hidden="true">play_circle_outline</i>
+          <audio src="audio/adormecedor.mp3"></audio>
+        </h3>
+
+        <ul class="flashcard_choices">
+          <li>
+            <input type="radio" name="adormecedor" value="burning, scorching" id="first-card_option1">
+            <label for="option1">burning, scorching</label>
+          </li>
+          <li>
+            <input type="radio" name="adormecedor" value="soporific, sleepy; numbing" id="first-card_option2">
+            <label for="option2">soporific, sleepy; numbing</label>
+          </li>
+          <li>
+            <input type="radio" name="adormecedor" value="unequal, uneven, irregular" id="first-card_option3">
+            <label for="option3">unequal, uneven, irregular</label>
+          </li>
+        </ul>
+        <p class="flashcard_message" lang"es"></p>
+      </div>
+
+
+      <!-- flashcard 02 -->
+      <div class="flashcard is-inactive" data-card="card_02">
+        <h3 class="flashcard_word" lang"es">
+          acechar
+          <i class="material-icons play" aria-hidden="true">play_circle_outline</i>
+          <audio src="audio/acechar.mp3"></audio>
+        </h3>
+
+        <ul class="flashcard_choices">
+          <li>
+            <input type="radio" name="adormecedor" value="to stalk, to lie in wait for" id="second-card_option1">
+            <label for="second-card_option1">to stalk, to lie in wait for</label>
+          </li>
+          <li>
+            <input type="radio" name="adormecedor" value="to burn, to grill" id="second-card_option2">
+            <label for="second-card_option2">to burn, to grill</label>
+          </li>
+          <li>
+            <input type="radio" name="adormecedor" value="to shop, to spend money" id="second-card_option3">
+            <label for="second-card_option3">to shop, to spend money</label>
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- flashcard 03 -->
+      <div class="flashcard is-inactive" data-card="card_03">
+        <h3 class="flashcard_word" lang"es">
+            el saltamontes
+          <i class="material-icons play" aria-hidden="true">play_circle_outline</i>
+          <audio src="audio/el_saltamontes.mp3"></audio>
+        </h3>
+
+        <ul class="flashcard_choices">
+          <li>
+            <input type="radio" name="adormecedor" value="the salt flats" id="second-card_option1">
+            <label for="second-card_option1">the salt flats</label>
+          </li>
+          <li>
+            <input type="radio" name="adormecedor" value="jumping jacks" id="second-card_option2">
+            <label for="second-card_option2">jumping jacks</label>
+          </li>
+          <li>
+            <input type="radio" name="adormecedor" value="a grasshopper" id="second-card_option3">
+            <label for="second-card_option3">a grasshopper</label>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!--
+    Requirements
+    ________________________________________
+
+    √ Using the jQuery library
+    Interact with the HTML using events (such as a click)
+    Take input from the user
+    Update and edit HTML with jQuery
+    √ Nice looking HTML + CSS to go along with the jQuery
+    Have some sort of computed logic in it
+  -->
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="script-v3.js"></script>
+</body>
+</html>

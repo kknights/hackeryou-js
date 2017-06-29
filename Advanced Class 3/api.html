@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>api stuff</title>
+</head>
+<body>
+
+  <form>
+
+    <select id="city">
+      <option value="Toronto">Centre of the Universe</option>
+      <option value="Ottawa">Ottawa</option>
+      <option value="London">London</option>
+      <option value="North Bay">North Bay</option>
+      <option value="Kingston">Kingston</option>
+      <option value="Waterloo">Waterloo</option>
+      <option value="Oshawa">Oshawa</option>
+    </select>
+
+
+  </form>
+
+  <h1 id="title"></h1>
+  <p id="temperature"></p>
+  <p id="magic"></p>
+  <img src="" alt="" id="icon" />
+  <p id="weatherString"></p>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+
+  // when user visits the page, show them toronto weather
+  // when user chooses another city, get the value of the select box, modify the url of the api request, and show them that city's weather
+
+
+  var weather = {}
+  weather.city = 'Toronto';
+
+  weather.getWeather = function(){
+    $.ajax({
+      url: `http://api.wunderground.com/api/ca755ccb038ad3dd/conditions/q/Ontario/${weather.city}.json`,
+      type: 'GET',
+      dataType: 'json'
+    }).then(function(response){
+      weather.displayData(response.current_observation);
+      weather.changeBG(response.current_observation.temp_c);
+    });
+  }
+
+  weather.displayData = function(data){
+    $('h1#title').text(data.display_location.full);
+    $('p#temperature').text(data.temp_c).append("ºC");
+    $('p#magic').text(`${data.display_location.magic} 🦄`);
+    $('p#weatherString').text(data.weather);
+    $('img#icon').attr('src', data.icon_url).attr('alt', data.icon);
+  }
+
+  weather.changeBG = function(temp){
+    const $body = $('body');
+    if(temp > 18) {
+      $($body).css('background', 'orange');
+    } else {
+      $($body).css('background', 'lightblue');
+    }
+  }
+
+
+  weather.switchCity = function(){
+    $('select#city').on('change', function(){
+      weather.city = $(this).val();
+      weather.getWeather();
+    });
+  }
+
+  weather.init = function(){
+    weather.getWeather();
+    weather.switchCity();
+    weather.changeBG();
+  }
+
+  $(function(){
+    weather.init();
+  });
+
+
+  </script>
+
+</body>
+</html>

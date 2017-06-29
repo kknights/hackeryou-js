@@ -1,0 +1,128 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors</title>
+</head>
+<body>
+
+  <!-- Questions -->
+
+
+<p class="computer-wins">Computer wins: <span></span></p>
+<p class="computer-losses">Computer loses: <span></span></p>
+<p class="user-wins">User wins: <span></span></p>
+<p class="user-losses">User losses <span></span></p>
+<p class="ties">Ties: <span></span></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+$(function(){
+
+  let computerWins = 0;
+  let computerLosses = 0;
+  let userWins = 0;
+  let userLosses = 0;
+  let ties = 0;
+
+    while ( computerWins < 5 && userWins < 5) {
+
+      // get the user's hand, convert to lowercase
+      let userHand = prompt("Rock, paper, or scissors?");
+      userHand = userHand.toLowerCase ();
+      console.log(`User: ${userHand}`);
+
+      // only allow "rock", "paper", or "scissors"; restrict numbers
+      if (userHand != "rock" && userHand != "paper" && userHand != "scissors" || !isNaN(userHand)){
+        alert("Please enter ROCK, PAPER, or SCISSORS");
+      }
+
+      // get the computer's hand
+      let computerHand = Math.random() * 3;
+      computerHand = Math.ceil(computerHand);
+
+
+      function rockPaperScissors() {
+        if (computerHand === 1) {
+          computerHand = "rock";
+        }
+        else if (computerHand === 2) {
+          computerHand = "paper";
+        }
+        else {
+          computerHand = "scissors";
+        }
+        return computerHand;
+      }
+      rockPaperScissors();
+
+      console.log(`Computer: ${computerHand}`);
+
+      // compare the hands to see who wins
+        if (computerHand === userHand){
+          console.log(`It's a tie!`);
+          ties++;
+        }
+
+        if (computerHand === "rock" && userHand === "paper" ) {
+          console.log(`Computer wins!`);
+          computerWins++;
+          userLosses++;
+        }
+
+        if (computerHand === "paper" && userHand === "rock"){
+          console.log(`User wins!`);
+          computerLosses++;
+          userWins++;
+        }
+
+        if (computerHand === "paper" && userHand === "scissors"){
+          console.log(`User wins!`);
+          computerLosses++;
+          userWins++;
+        }
+
+        if (computerHand === "scissors" && userHand === "paper"){
+          console.log(`Computer wins!`);
+          computerWins++;
+          userLosses++;
+        }
+
+        if (computerHand === "scissors" && userHand === "rock") {
+          console.log(`User wins!`);
+          computerLosses++;
+          userWins++
+        }
+
+        if (computerHand === "rock" && userHand === "scissors") {
+          console.log(`Computer wins!`);
+          computerWins++;
+          userLosses++;
+        }
+      }
+
+
+    console.log(`------------------------`);
+    console.log(`ties: ${ties}`);
+    console.log(`Computer wins: ${computerWins}`);
+    console.log(`Computer losses: ${computerLosses}`);
+    console.log(`User wins: ${userWins}`);
+    console.log(`User losses: ${userLosses}`);
+
+
+    // // tally scores into web page
+    $('.computer-wins span').html(`${computerWins}`);
+    $('.computer-losses span').html(`${computerLosses}`);
+    $('.user-wins span').html(`${userWins}`);
+    $('.user-losses span').html(`${userLosses}`);
+    $('.ties span').html(`${ties}`);
+
+
+});
+
+
+</script>
+
+</body>
+</html>

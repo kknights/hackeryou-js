@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Coin Flip!</title>
+</head>
+<body>
+  
+  <script>
+  
+    var heads = 0;
+    var tails = 0;
+    var highestHeads = 0;
+    var highestTails = 0;
+    var lowestHeads = 1000;
+    var lowestTails = 1000;
+
+    var flip = function() {
+      var rand = Math.random();
+
+      if(rand <= 0.5) {
+        heads++;
+      } 
+      else tails++;
+    };
+
+    var flipMany = function(num) {
+      // zero them out
+      heads = 0;
+      tails = 0;
+
+      for (var i = 0; i < num; i++) {
+        flip();
+      };
+
+      if(heads > highestHeads) {
+        highestHeads = heads;
+      }
+
+      if(heads < lowestHeads) {
+        lowestHeads = heads;
+      }
+
+      if(tails > highestTails) {
+        highestTails = tails;
+      }
+
+      if(tails < lowestTails) {
+        lowestTails = tails;
+      }
+      
+      
+    }
+
+    for (var i = 0; i < 100000; i++) {
+      flipMany(100);
+    };
+
+    console.log("highest heads so far:",highestHeads);
+    console.log("highest tails so far:",highestTails);
+
+    console.log("lowest heads so far:",lowestHeads);
+    console.log("lowest tails so far:",lowestTails);
+  </script>
+
+</body>
+</html>
