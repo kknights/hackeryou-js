@@ -42,12 +42,12 @@ flashcards.rightAnwser = function(){
 // 3. change is-active states and load next flashcard
 flashcards.loadNextFlashcard = function(){
   setTimeout(function request() {
-    $(activeCard).removeClass('is-active').addClass('is-inactive');
-    $(activeCard).next($flashcardItem).removeClass('is-inactive').addClass('is-active');
+    $($activeCard).removeClass('is-active').addClass('is-inactive');
+    $($activeCard).next($flashcardItem).removeClass('is-inactive').addClass('is-active');
 
     // grab the newly active card
-    activeCard = $('.is-active');
-    currentCard = $(activeCard[0]).data('card');
+    $activeCard = $('.is-active');
+    currentCard = $($activeCard[0]).data('card');
     flashcards.answerCheck();
 
     // remove the message
