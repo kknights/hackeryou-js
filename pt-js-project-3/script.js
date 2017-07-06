@@ -5,7 +5,6 @@ wanderlust.apikey = 'AIzaSyDlD-Sy5NSz-uwNEcEJWfbEY4nRrTWARWU';
 
 wanderlust.init = function() {
   wanderlust.getFlights();
-  // console.log(wanderlust.getFlights);
 };
 
 
@@ -14,26 +13,46 @@ wanderlust.getFlights = function(){
     url: 'https://www.googleapis.com/qpxExpress/v1/trips/search',
     type: 'POST',
     data: {
-      key: wanderlust.apikey,
-      dataType: 'application/json',
+      key: wanderlust.apikey
     },
-    'request': {
-      'slice': [
-        {
-          'origin': 'BOS',
-          'destination': 'YYZ',
-          'date': '2017-10-01'
-        }
-      ],
-      'passengers': {
-        'adultCount': 1,
-        'infantInLapCount': 0,
-        'infantInSeatCount': 0,
-        'childCount': 0,
-        'seniorCount': 0
-      },
-      'solutions': 20,
-      'refundable': false
+
+
+    // "request": {
+    //   "passengers": {
+    //     "kind": "qpxexpress#passengerCounts",
+    //     "adultCount": 1
+    //   },
+    //   "slice": [
+    //     {
+    //       "kind": "qpxexpress#sliceInput",
+    //       "origin": 'YYZ',
+    //       "destination": 'BCN',
+    //       "date": 2017-10-01,
+    //
+    //     }
+    //   ],
+    //
+    // },
+
+
+    // {
+      "request":{
+        "passengers":{
+          "adultCount":1
+        },
+        "slice":[
+          {
+            "origin":"BOS",
+            "destination":"LAX",
+            "date":"2017-09-05"
+          },
+          {
+            "origin":"LAX",
+            "destination":"BOS",
+            "date":"2017-09-10"
+          }
+        ]
+      // }
     },
     success: function(){
       console.log("woot");
