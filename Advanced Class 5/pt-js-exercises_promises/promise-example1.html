@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Promises</title>
+</head>
+<body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    var yapromise = $.ajax({
+      url : 'http://api.wunderground.com/api/61f0a55cb00602dc/conditions/q/Toronto, ontario.json',
+      dataType : 'JSON'
+    });
+
+    $.when(yapromise).done(function(weather) {
+      console.log(weather);
+    });
+
+    // use .fail() for failures
+    // or .then(success, fail) for both
+
+  </script>
+</body>
+</html>

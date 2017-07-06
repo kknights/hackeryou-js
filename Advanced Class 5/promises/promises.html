@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'/>
+  <title>Promises</title>
+</head>
+<body>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+
+  $(function() {
+    // 'http://api.wunderground.com/api/fc6dbb34bf36471f/conditions/q/Ontario/[City].json'
+    // const toronto = $.ajax('http://api.wunderground.com/api/ca755ccb038ad3dd/conditions/q/Ontario/Toronto.json');
+    // const ottawa = $.ajax('http://api.wunderground.com/api/ca755ccb038ad3dd/conditions/q/Ontario/Ottawa.json');
+    // const tobermory = $.ajax('http://api.wunderground.com/api/ca755ccb038ad3dd/conditions/q/Ontario/Tobermory.json');
+    // const wawa = $.ajax('http://api.wunderground.com/api/ca755ccb038ad3dd/conditions/q/Ontario/Wawa.json');
+    //
+    // Promise.all([toronto, ottawa, tobermory, wawa])
+    // .then((res) => {
+    //   console.log(res);
+    //   $('body').html('<p>ERROR</p>')
+    // });
+
+    const toronto = fetch('http://api.wunderground.com/api/ca755ccb038ad3dd/conditions/q/Ontario/Toronto.json');
+    console.log(toronto);
+
+    toronto.then(function(res){
+      return res.json();
+    }).then(function(data){
+      console.log(data);
+    }).catch(function(){
+      console.log('broken');
+    })
+
+
+  });
+
+
+
+  </script>
+
+</body>
+</html>

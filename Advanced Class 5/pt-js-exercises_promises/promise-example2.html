@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Promises</title>
+</head>
+<body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    // create our first promise
+    var p1 = $.ajax({
+      url : 'http://api.wunderground.com/api/61f0a55cb00602dc/conditions/q/Toronto, ontario.json',
+      dataType : 'JSON',
+      data : {
+        q : 'Toronto'
+      }
+    });
+
+    // create our second promise
+    var p2 = $.ajax({
+      url : 'http://myttc.ca/vehicles/near/queen_and_spadina.json?callback=?',
+      dataType : 'JSON'
+    });
+
+    $.when(p1, p2).then(function(p1data, p2data) {
+      console.log(p1data, p2data);
+    });
+
+  </script>
+</body>
+</html>
