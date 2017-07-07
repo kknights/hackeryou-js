@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Map 1</title>
+</head>
+<body>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    .map {
+      width:100%;
+      height:400px;
+    }
+  </style>
+
+  <div class="map"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGcj5aiX4UZjNdw-ane2U6hhle1hV0vCw" type="text/javascript"></script>
+
+
+  <script>
+    var app = {};
+
+    app.loadMap = function() {
+      // 1. all the options for the google map are held in an object
+
+      // 2. we also select the map div with jquery, but only the first item in the array
+
+      // 3. which we then pass to the map method and store
+
+
+    } // end app.loadMap definition
+
+
+    $(function() {
+      // 4. call load map when the document is ready
+
+    }); // end doc ready
+
+
+  </script>
+
+
+  <script id="__bs_script__">//<![CDATA[
+    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.18.12'><\/script>".replace("HOST", location.hostname));
+//]]></script>
+</body>
+</html>
