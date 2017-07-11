@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>getUserMedia()</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="flash"></div>
+
+  <div class="photoBooth clearfix">
+    <video class="webcam"></video>
+    <canvas class="photo"></canvas>
+    <div class="countdown"></div>
+    <div class="tools">
+      <a href="#" class="snap" data-wait="0"><i class="fa fa-camera"></i></a>
+      <a href="#" class="snap" data-wait="4000">
+        4 <i class="fa fa-clock-o"></i>
+      </a>
+      <a href="#" class="flip"><i class="fa fa-refresh"></i></a>
+    </div>
+    <div class="strip"></div>
+  </div>
+
+  <div class="trash">
+    <i class="fa fa-trash-o"></i>
+  </div>
+
+  <audio class="cameraSound" src="snap.mp3"></audio>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+  <script>
+    app = {};
+
+    // grab the video element with jQuery
+    app.video = $('video.webcam')[0];
+    // grab the canvas with jquery
+    app.canvas = $('canvas.photo')[0];
+
+    app.getVideo = function() {
+
+      // normalize so it works on all browsers in the future all browsers will get navigator.getUserMedia()
+      navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+      navigator.getUserMedia ({ video: true,  audio: true }, function(localMediaStream) {
+        // set the video source
+        app.video.src = window.URL.createObjectURL(localMediaStream);
+        // play the video!
+        app.video.play();
+      },
+      // errorCallback
+      function(err) {
+        console.log("The following error occured: " + err);
+     });
+    }
+
+    app.takePhoto = function() {
+      /* The next four lines set the canvas to the same size as the video */
+      var width = $(app.video).width();
+      var height = $(app.video).height();
+      app.canvas.width = width;
+      app.canvas.height = height;
+
+      // 5. Then we "draw" the video (one frame) to the canvas
+      app.canvas.getContext('2d').drawImage(app.video, 0, 0, width, height);
+
+      // 6. Then we convert that canvas to a "data blob"  which is like an image src
+      var data = app.canvas.toDataURL('image/png');
+
+      // flash the screen
+      $('.flash').show().fadeOut(250);
+
+      // 1. create an image 2. set the source the be the data 3. append to an element
+      var img = $('<img>').attr('src',data);
+      var link = $("<a>").attr("download","so-good-looking").attr("href",data);
+      img.appendTo(link);
+      link.appendTo('.strip');
+
+      // make it draggable
+      $('.strip img').draggable();
+
+    }
+
+    app.playCameraSounds = function() {
+      var audio = $('audio.cameraSound')[0];
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+
+    $(function() {
+      // start by getting the video
+      app.getVideo();
+
+      $('a.snap').on('click',function(e) {
+        e.preventDefault();
+        // find the wait time
+        var waitTime = $(this).data('wait');
+        var waitedTime = 0;
+
+        // if there is no wait, then just take it
+        if(!waitTime) {
+          app.takePhoto();
+          app.playCameraSounds();
+          return; // stop the rest from running
+        }
+
+        // set a timeout to take the photo after X seconds
+        setTimeout(function(){
+          app.takePhoto();
+          app.playCameraSounds();
+        },waitTime);
+
+        $('.countdown').text(waitTime / 1000).show();
+
+        var interval = setInterval(function(){
+          waitedTime+= 1000;
+          var timeLeft = (waitTime - waitedTime) / 1000;
+          $('.countdown').text(timeLeft);
+          if(waitedTime >= waitTime) {
+            clearInterval(interval);
+            $('.countdown').hide();
+          }
+        },1000);
+
+
+
+      });
+
+      $('a.flip').on('click',function(e) {
+        e.preventDefault();
+        $(app.video).toggleClass('flipped');
+      });
+
+      // hook up the trash
+      $( ".trash" ).droppable({
+          accept: ".strip img",
+          hoverClass: "trash-hover",
+          drop: function( event, ui ) {
+            // grab the first item from the draggable UI and remove it
+            $(ui.draggable[0]).remove();
+          }
+        });
+
+
+
+    });
+
+  </script>
+</body>
+</html>

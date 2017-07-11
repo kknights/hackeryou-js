@@ -3,49 +3,102 @@ $(function(){
 });
 
 const app = {};
+const map_wrapper = $('#map');
+let currentLocation ="";
 
 app.googleMaps = function(){
-  const map_wrapper = $('#map');
 
-  // 1. Get current location onClick /  load map_wrapper
-  $('button').on('click', function(){
-    map_wrapper.show();
-    currentLocation();
-  });
-
-
-
-
-  // GET CURRENT POSITION
-  var currentLocation =  function(){
+  // 1. GET CURRENT POSITION
+  app.googleMaps.currentLocation = function(){
     navigator.geolocation.getCurrentPosition(
       function(position) {
         app.googleMaps.makeMap(position.coords);
         app.googleMaps.makeMarker(position.coords, 'You are here', '');
+        currentLocation = position.coords;
+        console.log(currentLocation);
       },
       function(err){
         $('body').text('please enable location on your browser 🦄');
       });
+
+      // return;
     };
-    
 
 
 
-    // 2. Display a map showing present location / load nearby breweries
+
+    // 2. Set coordinates
     app.googleMaps.makeMap = function(coords){
       var mapElement = $('#map')[0];
       var mapOptions = {
         center: {lat:coords.latitude, lng:coords.longitude},
-        zoom: 16,
-        styles: app.snazzyMap,
-        scrollwheel: false,
-        q: 'patios'
+        zoom: 16
+        // styles: app.snazzyMap,
+        // scrollwheel: false,
       };
       app.map = new google.maps.Map(mapElement, mapOptions);
     };
 
 
-    // 3. Make a custom marker that has important info in it
+
+// // 3. display a map with breweries marked
+// function initMap() {
+//   var toronto = {lat: 43.6422139, lng: -79.4253841};
+//   var currentLocation = navigator.geolocation.getCurrentPosition(
+//     function(position) {
+//       app.googleMaps.makeMap(position.coords);
+//       app.googleMaps.makeMarker(position.coords, 'You are here', '');
+//     },
+//     function(err){
+//       $('body').text('please enable location on your browser 🦄');
+//     });
+//
+//
+//
+//     map = new google.maps.Map(document.getElementById('map'), {
+//       center: toronto,
+//       zoom: 16
+//     });
+//
+//     infowindow = new google.maps.InfoWindow();
+//     var service = new google.maps.places.PlacesService(map);
+//     service.nearbySearch({
+//       location: toronto,
+//       radius: 500,
+//       // type: ['bar'],
+//       keyword: ['patio']
+//     }, callback);
+//
+//     var bikeLayer = new google.maps.BicyclingLayer();
+//     bikeLayer.setMap(map);
+//
+//   }
+//
+//   function callback(results, status) {
+//     if (status === google.maps.places.PlacesServiceStatus.OK) {
+//       for (var i = 0; i < results.length; i++) {
+//         createMarker(results[i]);
+//       }
+//     }
+//   }
+//
+//   function createMarker(place) {
+//     var placeLoc = place.geometry.location;
+//     var marker = new google.maps.Marker({
+//       map: map,
+//       position: place.geometry.location
+//     });
+//
+//     google.maps.event.addListener(marker, 'click', function() {
+//       infowindow.setContent(place.name);
+//       infowindow.open(map, this);
+//     });
+//   }
+
+
+
+
+    //3. Make a custom marker that has important info in it
     app.googleMaps.makeMarker = function(coords, infoText, icon){
       var mapMarker = new google.maps.Marker({
         position: {lat:coords.latitude, lng: coords.longitude},
@@ -61,7 +114,7 @@ app.googleMaps = function(){
         infoWindow.open(app.map,  mapMarker);
       });
     };
-  }
+  };
 
 
 
@@ -99,6 +152,13 @@ app.googleMaps = function(){
   app.init = function() {
     app.googleMaps();
     app.getBreweries();
+
+    // 1. Get current location onClick /  load map_wrapper
+    $('button').on('click', function(){
+      map_wrapper.show();
+      app.googleMaps.currentLocation();
+      console.log(currentLocation);
+    });
 
 
 

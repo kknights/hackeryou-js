@@ -1,0 +1,93 @@
+body {
+  text-align: center;
+  font-family: sans-serif;
+  color:white;
+  background:#2c3e50;
+}
+ .clearfix:after {visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; } 
+
+video {
+  transition:all 0.5s;
+}
+
+video.flipped {
+  -webkit-transform:rotateY(180deg);
+  transform:rotateY(180deg);
+}
+
+a {
+  text-decoration: none;
+}
+
+.tools {
+  padding:10px;
+}
+.tools a {
+  color:white;
+  background:red;
+  display: inline-block;
+  width:70px;
+  line-height:70px;
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+
+.photoBooth {
+  background:#F2F3F7;
+  border-radius: 10px;
+  border-radius: 5px;
+  max-width:640px;
+  margin: 0 auto;
+  position: relative;
+  perspective:500px;
+  -webkit-perspective:500px;
+}
+    canvas {
+      display: none;
+    }
+
+    .strip img {
+      width:16.666666667%;
+      float:left;
+    }
+
+.flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:white;
+  z-index: 99;
+  display: none;
+}
+
+
+.trash {
+  border:5px dashed #f1c40f;
+  position: absolute;
+  top:10px;
+  left:10px;
+  z-index: -1;
+}
+
+.trash i {
+  font-size: 50px;
+  padding:50px;
+}
+
+.trash.trash-hover {
+  color:#c0392b;
+  border-color:#c0392b;
+}
+
+.countdown {
+  position: absolute;
+  width: 100%;
+  font-size: 200px;
+  text-shadow:5px 5px 0 rgba(0,0,0,0.4);
+  top: 0;
+  padding-top: 190px;
+  display: none;
+}
