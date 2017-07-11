@@ -10,8 +10,14 @@ app.googleMaps = function(){
   // 1. Get current location onClick /  load map_wrapper
   $('button').on('click', function(){
     map_wrapper.show();
+    currentLocation();
+  });
 
-    // GET CURRENT POSITION
+
+
+
+  // GET CURRENT POSITION
+  var currentLocation =  function(){
     navigator.geolocation.getCurrentPosition(
       function(position) {
         app.googleMaps.makeMap(position.coords);
@@ -20,9 +26,10 @@ app.googleMaps = function(){
       function(err){
         $('body').text('please enable location on your browser 🦄');
       });
+    };
+    
 
 
-    });
 
     // 2. Display a map showing present location / load nearby breweries
     app.googleMaps.makeMap = function(coords){
