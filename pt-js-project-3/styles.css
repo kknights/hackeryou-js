@@ -1,6 +1,13 @@
 button {
-  margin: 100px auto;
+  margin: 40px auto;
   display: block;
+}
 
-  
+#map {
+  display: none;
+  width: 800px;
+  height: 600px;
+  outline: 1px solid #000;
+  margin: 0 auto 100px;
+  background: url('img/bike-2.gif') no-repeat;
 }

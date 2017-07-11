@@ -24,16 +24,6 @@
   var app = {};
   app.apiKey = 'AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc';
 
-  app.earlyBird = {
-    latitude: 43.6425701,
-    longitude: -79.4222752
-  }
-
-  app.cnTower = {
-    latitude: 43.6448627,
-    longitude: -79.3892455
-  }
-
   app.makeMap = function(coords){
     var mapElement = $('.map')[0];
     var mapOptions = {
@@ -214,6 +204,9 @@
       function(err){
         $('body').text('please enable location on your browser 🦄');
       });
+
+
+
     });
 
 
