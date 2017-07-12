@@ -4,7 +4,7 @@ button {
 }
 
 #map {
-  display: none;
+  /*display: none;*/
   width: 800px;
   height: 600px;
   outline: 1px solid #000;

@@ -7,71 +7,73 @@
 <body>
 
   <div class="photoBooth">
+    a
     <video class="webcam"></video>
     <canvas class="photo"></canvas>
     <div class="strip"></div>
   </div>
 
   <style>
-    canvas {
-      display: none;
-    }
+  canvas {
+    display: none;
+  }
 
-    .strip img {
-      width:400px;
-    }
+  .strip img {
+    width:400px;
+  }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
-    app = {};
+  app = {};
 
-    // 1. grab the video element with jQuery and store it in app.video
+  // 1. grab the video element with jQuery and store it in app.video
 
-    // 2. grab the canvas with jquery and store it in app.canvas
-
-
-    app.getVideo = function() {
-      console.log("get video called");
-      // Vendor prefix so it works on all browsers in the future all browsers will get navigator.getUserMedia().
-      navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-
-      navigator.getUserMedia({ video: true,  audio: false }, function(localMediaStream) {
-        console.log(app.video);
-        // 3. set the video source with window.URL.createObjectURL
-
-        // 4. play the video!
+  // 2. grab the canvas with jquery and store it in app.canvas
 
 
-      },
-      // errorCallback
-      function(err) {
-        console.log("The following error occured: " + err);
-     });
-    }
+  app.getVideo = function() {
+    console.log("get video called");
+    // Vendor prefix so it works on all browsers in the future all browsers will get navigator.getUserMedia().
+    navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
-    app.takePhoto = function() {
-      /* The next four lines set the canvas to the same size as the video */
-      var width = $(app.video).width();
-      var height = $(app.video).height();
-      app.canvas.width = width;
-      app.canvas.height = height;
+    navigator.getUserMedia({ video: true,  audio: false }, function(localMediaStream) {
+      console.log(app.video);
+      // 3. set the video source with window.URL.createObjectURL
 
-      // 5. Then we "draw" the video (one frame) to the canvas
+      // 4. play the video!
 
 
-      // 6. Then we convert that canvas to a "data blob"  which is like an image src
-
-
-      // 7.  -  1. create an image 2. set the source the be the data 3. append to an element
-
-    }
-
-
-    $(function() {
-      app.getVideo();
+    },
+    // errorCallback
+    function(err) {
+      console.log("The following error occured: " + err);
     });
+  }
+
+  app.takePhoto = function() {
+    /* The next four lines set the canvas to the same size as the video */
+    var width = $(app.video).width();
+    var height = $(app.video).height();
+    app.canvas.width = width;
+    app.canvas.height = height;
+
+    // 5. Then we "draw" the video (one frame) to the canvas
+    app.canvas.getContect('2d'.drawImage(app.video,0,0, width,height);
+
+    // 6. Then we convert that canvas to a "data blob"  which is like an image src
+    var imageUrl = app.canvas.toDataURL('image/png');
+    var image = $('img').attr('src', imageUrl);
+    var link = $('<a>').attr('href', imageURL).attr('download', 'awkwardphoto');
+    var downloadableLink - image.append(link);
+    $('.strip').append(image);
+  }
+
+
+  $(function() {
+    app.getVideo();
+  });
 
   </script>
-</body>
-</html>
+  </body>
+  </html>
