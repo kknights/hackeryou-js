@@ -5,36 +5,52 @@ $(function(){
 const app = {};
 const map_wrapper = $('#map');
 
-var currentLocation = {};
+var currentLocation = '';
 let longitude = '';
 let latitude = '';
 
 
-// 1. get current location
 app.getCurrentLocation = function(){
 
-  function getLocation() {
+  console.log(1);
+
+  app.getLocation = function(){
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
+      navigator.geolocation.getCurrentPosition(app.showPosition);
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
   };
 
-  function showPosition(position) {
+  app.showPosition = function(position){
     latitude = position.coords.latitude;
-    longitude = position.coords.latitude;
+    longitude = position.coords.longitude;
 
     currentLocation = {
       lat: latitude,
       lng: longitude
     };
+
+    //this works!    
+    console.log(currentLocation);
+    console.log(latitude);
+    console.log(longitude);
   };
+
+  app.getLocation();
 };
 
 
-// 2. display a map with search results marked
+
+
+// // 3. display a map with breweries marked
 function initMap() {
+
+  console.log(2);
+
+  // console.log(`latitude: ${latitude}`);
+  // console.log(`longitude: ${longitude}`);
+  // console.log(`currentLocation: ${currentLocation}`);
 
   var toronto = {
     lat: 43.6422139,
@@ -42,16 +58,12 @@ function initMap() {
   };
 
 
-  console.log(`toronto: ${toronto}`);
-  console.log(`currentLocation: ${currentLocation}`);
-
 
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: toronto,
     zoom: 16
   });
-
 
   infowindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
@@ -64,6 +76,7 @@ function initMap() {
 
   var bikeLayer = new google.maps.BicyclingLayer();
   bikeLayer.setMap(map);
+
 }
 
 function callback(results, status) {
@@ -89,6 +102,24 @@ function createMarker(place) {
 
 
 
+
+//3. Make a custom marker that has important info in it
+// app.googleMaps.makeMarker = function(coords, infoText, icon){
+//   var mapMarker = new google.maps.Marker({
+//     position: {lat:coords.latitude, lng: coords.longitude},
+//     map: app.map,
+//     icon: icon,
+//   });
+
+// var infoWindow = new google.maps.InfoWindow();
+
+// google.maps.event.addListener(mapMarker, 'click', function(){
+//   infoWindow.setContent(infoText);
+//   infoWindow.setPosition({lat:coords.latitude, lng: coords.longitude});
+//   infoWindow.open(app.map,  mapMarker);
+// });
+//   };
+// };
 
 
 
@@ -125,9 +156,8 @@ app.getBreweries = function(query){
 
 app.init = function() {
   // app.getBreweries();
-  console.log('test');
-
   app.getCurrentLocation();
+
   // $('button').on('click', function(){
   //   map_wrapper.show();
   //   app.getCurrentLocation();
