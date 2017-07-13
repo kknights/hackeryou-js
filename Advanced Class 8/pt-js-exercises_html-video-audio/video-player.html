@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Player</title>
+</head>
+<body>
+  <div class="videoPlayer">
+    <video src="files/trailer.mp4" autoplay></video>
+
+    <div class="controls">
+
+      <a href="#" class="play">Play</a>
+      <a href="#" class="pause">Pause</a>
+
+      <div class="progressWrapper">
+        <div class="progress"></div>
+      </div>
+
+      <input type="range" class="volume">
+
+    </div>
+
+
+  </div>
+
+  <style>
+    .progressWrapper {
+      border:1px solid black;
+    }
+
+    .progress {
+      height: 20px;
+      transition: all 0.3s;
+      background:red;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    $(function(){
+      // Go nuts
+    });
+  </script>
+</body>
+</html>

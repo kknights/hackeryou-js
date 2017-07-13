@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Player</title>
+</head>
+<body>
+  <div class="videoPlayer">
+    <video src="files/trailer.mp4" autoplay></video>
+
+    <div class="controls">
+
+      <a href="#" class="play">Play</a>
+      <a href="#" class="pause">Pause</a>
+
+      <div class="progressWrapper">
+        <div class="progress"></div>
+      </div>
+
+      <input type="range" class="volume">
+
+    </div>
+
+
+  </div>
+
+  <style>
+    .progressWrapper {
+      border:1px solid black;
+    }
+
+    .progress {
+      height: 20px;
+      transition: all 0.3s;
+      background:red;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    $(function(){
+      var $video = $('video');
+      var video = $video[0];
+
+
+      $('.play').on('click',function(e){
+        e.preventDefault();
+        video.play();
+      });
+
+      $('.pause').on('click',function(e){
+        e.preventDefault();
+        video.pause();
+      });
+
+      $('input[type="range"]').on('change mousemove',function() {
+        var vol = $(this).val() / 100;
+        video.volume = vol;
+      });
+
+      $video.on('timeupdate',function(e){
+        var percentage = (video.currentTime / video.duration) * 100;
+        $('.progress').css('width',percentage + "%");
+        console.log("Progress!!", video.currentTime, "of " ,video.duration);
+      });
+
+
+
+    });
+  </script>
+</body>
+</html>

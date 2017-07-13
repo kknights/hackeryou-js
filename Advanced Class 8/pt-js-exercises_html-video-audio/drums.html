@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drum Pad</title>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+</head>
+<body>
+  <div class="pad" data-sound="a"></div>
+  <div class="pad" data-sound="b"></div>
+  <div class="pad" data-sound="c"></div>
+  <div class="pad" data-sound="d"></div>
+
+  <audio class="a" src="files/BD0000.mp3"></audio>
+  <audio class="b" src="files/BD0010.mp3"></audio>
+  <audio class="c" src="files/CB.mp3"></audio>
+  <audio class="d" src="files/CY0000.mp3"></audio>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background:#9b59b6;
+    }
+
+    .pad {
+      width:250px;
+      background:white;
+      float:left;
+      margin:20px;
+      height:250px;
+      box-shadow:5px 5px 0 rgba(0,0,0,0.3);
+      border-radius: 50%;
+    }
+
+    .animated {
+      animation-duration: 0.2s;
+      -webkit-animation-duration: 0.2s;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+
+
+    var addAnimation = function(element, animationName) {
+      element.addClass('animated ' + animationName ).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+        // this runs once the animation is finished
+        element.removeClass('animated ' + animationName );
+      });
+    }
+
+  </script>
+</body>
+</html>

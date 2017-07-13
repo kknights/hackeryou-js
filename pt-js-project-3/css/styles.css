@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Open+Sans');
+@import url('animate.min.css');
+
+h1 {
+  font-family: 'Lobster', cursive;
+  font-size: 100px;
+  text-align: center;
+  display: block;
+  padding: 0;
+  margin: 0;
+  text-shadow: 1px 1px 2px black;
+
+}
+
+span {
+  color: #e8b504;
+  /*text-shadow: -2px 0 #000000,0 2px #000000,2px 0 #000000,0 -2px #000000;*/
+  text-shadow: 1px 1px 2px black;
+
+
+}
+
+h2 {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  margin: 40px auto;
+  display: block;
+}
+
+#map {
+  display: none;
+  width: 100%;
+  height: 600px;
+  outline: 1px solid #000;
+  margin: 0 auto 100px;
+  background: url('img/beer.gif') no-repeat center center #201f1e;
+}

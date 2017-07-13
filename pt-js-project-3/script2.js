@@ -1,14 +1,9 @@
-
-
-
 //TODO: ADD IN CURRENT LOCATION MARKER
 //TODO: POPULATE INFO WINDOW
 //TODO: GET DIRECTIONS
 //TODO: GET WEATHER
 //TODO: GET REVIEWS AND/OR PHOTOS
 //TODO: ADD FANCY ANIMATION TO THE TITLE (SPINNING, ZOOM, ETC)
-
-
 
 
 $(function(){
@@ -69,28 +64,22 @@ function initMap() {
   console.log(`longitude: ${longitude}`);
 
 
-  var toronto = {
-    lat: 43.6422139,
-    lng: -79.4253841
-  };
-
   map = new google.maps.Map(document.getElementById('map'), {
     center: currentLocation,
-    zoom: 16
+    zoom: 13
   });
 
   infowindow = new google.maps.InfoWindow();
-  var patios = new google.maps.places.PlacesService(map);
-  patios.nearbySearch({
+  var breweries = new google.maps.places.PlacesService(map);
+  breweries.nearbySearch({
     location: currentLocation ,
-    radius: 500,
-    // type: ['bar'],
-    keyword: ['patio']
+    radius: 5000,
+    type: ['bar'],
+    keyword: ['brewery']
   }, callback);
 
   var bikeLayer = new google.maps.BicyclingLayer();
   bikeLayer.setMap(map);
-
 }
 
 
@@ -172,6 +161,8 @@ app.getBreweries = function(query){
 
 app.init = function() {
   // app.getBreweries();
+
+  // $('h1').addClass('animated jackInTheBox');
 
   $('button').on('click', function(){
     map_wrapper.show();
