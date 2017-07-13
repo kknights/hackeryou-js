@@ -5,13 +5,14 @@ $(function(){
 const app = {};
 const map_wrapper = $('#map');
 
-var currentLocation = '';
+let currentLocation = '';
 let longitude = '';
 let latitude = '';
 
 
 app.getCurrentLocation = function(){
   console.log(`1. app.getCurrentLocation loaded`);
+
   app.getLocation = function(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(app.showPosition);
@@ -37,12 +38,12 @@ app.getCurrentLocation = function(){
 
   app.getLocation();
 
-  $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=app.getCurrentLocation&callback=initMap" async defer></script>')
+  setTimeout(function request() {
+    console.log("set timeout for 5 sec");
+    $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>')
+  }, 5000);
 
 };
-
-
-
 
 
 
@@ -50,15 +51,10 @@ app.getCurrentLocation = function(){
 function initMap() {
 
   console.log(`2: initMap loaded`);
-
   console.log(`currentLocation: ${currentLocation.lat}`);
   console.log(`latitude: ${latitude}`);
   console.log(`longitude: ${longitude}`);
 
-
-  // console.log(`latitude: ${latitude}`);
-  // console.log(`longitude: ${longitude}`);
-  // console.log(`currentLocation: ${currentLocation}`);
 
   var toronto = {
     lat: 43.6422139,
@@ -74,8 +70,8 @@ function initMap() {
   });
 
   infowindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch({
+  var patios = new google.maps.places.PlacesService(map);
+  patios.nearbySearch({
     location: currentLocation ,
     radius: 500,
     // type: ['bar'],
@@ -86,6 +82,9 @@ function initMap() {
   bikeLayer.setMap(map);
 
 }
+
+
+
 
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
