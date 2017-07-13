@@ -11,9 +11,7 @@ let latitude = '';
 
 
 app.getCurrentLocation = function(){
-
-  console.log(1);
-
+  console.log(`1. app.getCurrentLocation loaded`);
   app.getLocation = function(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(app.showPosition);
@@ -31,14 +29,19 @@ app.getCurrentLocation = function(){
       lng: longitude
     };
 
-    //this works!    
-    console.log(currentLocation);
-    console.log(latitude);
-    console.log(longitude);
+    //this works!
+    // console.log(currentLocation);
+    // console.log(latitude);
+    // console.log(longitude);
   };
 
   app.getLocation();
+
+  $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=app.getCurrentLocation&callback=initMap" async defer></script>')
+
 };
+
+
 
 
 
@@ -46,7 +49,12 @@ app.getCurrentLocation = function(){
 // // 3. display a map with breweries marked
 function initMap() {
 
-  console.log(2);
+  console.log(`2: initMap loaded`);
+
+  console.log(`currentLocation: ${currentLocation.lat}`);
+  console.log(`latitude: ${latitude}`);
+  console.log(`longitude: ${longitude}`);
+
 
   // console.log(`latitude: ${latitude}`);
   // console.log(`longitude: ${longitude}`);
@@ -61,14 +69,14 @@ function initMap() {
 
 
   map = new google.maps.Map(document.getElementById('map'), {
-    center: toronto,
+    center: currentLocation,
     zoom: 16
   });
 
   infowindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch({
-    location: toronto ,
+    location: currentLocation ,
     radius: 500,
     // type: ['bar'],
     keyword: ['patio']
@@ -156,12 +164,11 @@ app.getBreweries = function(query){
 
 app.init = function() {
   // app.getBreweries();
-  app.getCurrentLocation();
 
-  // $('button').on('click', function(){
-  //   map_wrapper.show();
-  //   app.getCurrentLocation();
-  // });
+  $('button').on('click', function(){
+    map_wrapper.show();
+    app.getCurrentLocation();
+  });
 
 
 
