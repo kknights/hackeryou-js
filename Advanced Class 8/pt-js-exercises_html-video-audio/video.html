@@ -9,15 +9,35 @@
     <source src="files/trailer.mp4"></source>
   </video>
 
-  <input type="range" min="1" max="100" class="volume">
+  <div class="controls">
+    <button id="play">Play</button>
+    <button id="pause">Pause</button>
+    <button id="mute">Mute</button>
+    <input type="range" min="1" max="100" class="volume" />
+  </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
   <script>
-    $(function() {
+  $(function() {
 
+    var $video = $('video');
+    var video = $video[0];
 
-    }); // end doc ready
+    $('#play').on('click', function(){
+      video.play();
+    })
+
+    $('#pause').on('click', function(){
+      video.pause();
+    });
+
+    $('#mute').on('click', function(){
+      video.muted = !video.muted;
+    })
+    
+
+  }); // end doc ready
   </script>
 </body>
 </html>
