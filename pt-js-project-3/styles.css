@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+
+
+h1 {
+  font-family: 'Lobster', cursive;
+  font-size: 70px;
+  text-align: center;
+}
+
+
 button {
   margin: 40px auto;
   display: block;
@@ -9,5 +20,6 @@ button {
   height: 600px;
   outline: 1px solid #000;
   margin: 0 auto 100px;
-  background: url('img/bike-2.gif') no-repeat;
+  background: url('img/beer.gif') no-repeat center center #201f1e;
 }
+i

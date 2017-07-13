@@ -1,3 +1,16 @@
+
+
+
+//TODO: ADD IN CURRENT LOCATION MARKER
+//TODO: POPULATE INFO WINDOW
+//TODO: GET DIRECTIONS
+//TODO: GET WEATHER
+//TODO: GET REVIEWS AND/OR PHOTOS
+//TODO: ADD FANCY ANIMATION TO THE TITLE (SPINNING, ZOOM, ETC)
+
+
+
+
 $(function(){
   app.init();
 });
@@ -103,7 +116,6 @@ function createMarker(place) {
     infowindow.open(map, this);
   });
 };
-
 
 
 
