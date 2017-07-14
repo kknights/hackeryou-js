@@ -23,6 +23,7 @@ app.getCurrentLocation = function(){
   console.log(`1. app.getCurrentLocation loaded`);
 
   app.getLocation = function(){
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(app.coords);
     } else {
@@ -38,14 +39,17 @@ app.getCurrentLocation = function(){
       lat: latitude,
       lng: longitude
     };
+
+    $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>')
+
   };
 
   app.getLocation();
 
-  setTimeout(function request() {
-    console.log("set timeout for 2 sec");
-    $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>')
-  }, 5000);
+  // setTimeout(function request() {
+  //   console.log("set timeout for 2 sec");
+  //   $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>')
+  // }, 5000);
 };
 
 
