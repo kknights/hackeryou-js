@@ -3,17 +3,16 @@
 //TODO: GET DIRECTIONS
 //TODO: GET WEATHER
 //TODO: GET REVIEWS AND/OR PHOTOS
-//√ TODO: ADD FANCY ANIMATION TO THE TITLE (SPINNING, ZOOM, ETC)
-//√ TODO: SNAZZY MAPS
+//TODO: ADD FANCY ANIMATION TO THE TITLE (SPINNING, ZOOM, ETC)
+//TODO: SNAZZY MAPS
 
 $(function(){
   app.init();
 });
 
 const app = {};
-const map_wrapper = $('.map_wrapper');
+const map_wrapper = $('#map');
 
-// optimize
 let currentLocation = '';
 let longitude = '';
 let latitude = '';
@@ -23,14 +22,27 @@ app.getCurrentLocation = function(){
   console.log(`1. app.getCurrentLocation loaded`);
 
   app.getLocation = function(){
+    console.log('1a. test');
+
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(app.coords);
+
+      new Promise(function(resolve, reject) {
+        const location = navigator.geolocation.getCurrentPosition(app.showPosition);
+        resolve(location)
+      })
+
+      .then(function(data) {
+        console.log(data);
+
+        // this is being injected before geolocation is set :/
+        $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>')
+      });
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
   };
 
-  app.coords = function(position){
+  app.showPosition = function(position){
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
 
@@ -42,26 +54,31 @@ app.getCurrentLocation = function(){
 
   app.getLocation();
 
-  setTimeout(function request() {
-    console.log("set timeout for 2 sec");
-    $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>')
-  }, 5000);
+  // setTimeout(function request() {
+  //   console.log("set timeout for 5 sec");
+  //
+  // }, 5000);
 };
 
 
 
 // // 3. display a map with breweries marked
 function initMap() {
+
   console.log(`2: initMap loaded`);
+  console.log(`currentLocation: ${currentLocation.lat}`);
+  console.log(`latitude: ${latitude}`);
+  console.log(`longitude: ${longitude}`);
+
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: currentLocation,
     zoom: 13,
     styles: app.snazzyMap
+
   });
 
   infowindow = new google.maps.InfoWindow();
-
   var breweries = new google.maps.places.PlacesService(map);
   breweries.nearbySearch({
     location: currentLocation ,
@@ -86,35 +103,15 @@ function createMarker(place) {
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location,
+    position: place.geometry.location
   });
-
-
-  // this is needed to get address and stuff
-  // var request = { reference: place.reference };
-  // breweries.getDetails(request, function(details, status) {
-  //   google.maps.event.addListener(marker, 'click', function() {
-  //     infowindow.setContent(details.name + "<br />" + details.formatted_address +"<br />" + details.website + "<br />" + details.rating + "<br />" + details.formatted_phone_number);
-  //     infowindow.open(map, this);
-  //   });
-  // });
-
-
-
 
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent('<div>🍺 <strong>' + place.name + '</strong><br>' +
-    place.formatted_address + '</div>');
+    place.address + '</div>');
     infowindow.open(map, this);
   });
-
-
-
-
-
 };
-
-
 
 
 
@@ -128,7 +125,7 @@ function createMarker(place) {
 //     map: app.map,
 //     icon: icon,
 //   });
-// //
+//
 // var infoWindow = new google.maps.InfoWindow();
 //
 // google.maps.event.addListener(mapMarker, 'click', function(){
@@ -576,10 +573,6 @@ app.init = function() {
     map_wrapper.show();
     app.getCurrentLocation();
   });
-
-  $('button').hover(
-       function(){ $(this).toggleClass('animated pulse infinite') },
-)
 
 
 

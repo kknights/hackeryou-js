@@ -17,30 +17,66 @@
   <audio class="d" src="files/CY0000.mp3"></audio>
 
   <style>
-    body {
-      font-family: sans-serif;
-      background:#9b59b6;
-    }
+  body {
+    font-family: sans-serif;
+    background:#9b59b6;
+  }
 
-    .pad {
-      width:250px;
-      background:white;
-      float:left;
-      margin:20px;
-      height:250px;
-      box-shadow:5px 5px 0 rgba(0,0,0,0.3);
-      border-radius: 50%;
-    }
+  .pad {
+    width:250px;
+    background:white;
+    float:left;
+    margin:20px;
+    height:250px;
+    box-shadow:5px 5px 0 rgba(0,0,0,0.3);
+    border-radius: 50%;
+    cursor: pointer;
+  }
 
-    .animated {
-      animation-duration: 0.2s;
-      -webkit-animation-duration: 0.2s;
-    }
+  .animated {
+    animation-duration: 0.2s;
+    -webkit-animation-duration: 0.2s;
+  }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
   <script>
+  $(function(){
+
+
+    $('.pad').on('click', function(){
+
+      // $('.pad').removeClass('animated');
+      // $(this).addClass('animated');
+
+
+      var sound = $(this).data('sound');
+      var audio = $('.' + sound)[0];
+
+      audio.currentTime = 0;
+      audio.play();
+      addAnimation($(this));
+
+
+      //
+      // if($(this).data('sound') === 'a'){
+      //   $('.a').trigger('play');
+      // };
+      //
+      // if($(this).data('sound') === 'b'){
+      //   $('.b').trigger('play');
+      // };
+      //
+      // if($(this).data('sound') === 'c'){
+      //   $('.c').trigger('play');
+      // };
+      //
+      // if($(this).data('sound') === 'd'){
+      //   $('.d').trigger('play');
+      // };
+
+    })
 
 
     var addAnimation = function(element, animationName) {
@@ -50,6 +86,7 @@
       });
     }
 
+  });
   </script>
-</body>
-</html>
+  </body>
+  </html>
