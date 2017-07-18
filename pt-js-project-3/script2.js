@@ -60,6 +60,9 @@ function initMap() {
 
   infowindow = new google.maps.InfoWindow();
 
+
+  // var service = new google.maps.places.PlacesService(map);
+
   var breweries = new google.maps.places.PlacesService(map);
   breweries.nearbySearch({
     location: currentLocation ,
@@ -72,7 +75,7 @@ function initMap() {
   // request = {
   //   reference: place.reference
   // };
-
+  //
   // breweries.getDetails(request, function(details, status) {
   //   google.maps.event.addListener(marker, 'click', function() {
   //     infowindow.setContent(details.name + "<br />" + details.formatted_address +"<br />" + details.website + "<br />" + details.rating + "<br />" + details.formatted_phone_number);
@@ -94,26 +97,34 @@ function createMarker(place) {
   var marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location,
+    reference: place.reference
+    //
   });
 
-
-
-
-
-
-
+  // INFOWINDOW
   google.maps.event.addListener(marker, 'click', function() {
     let placeName = place.name;
-    
     infowindow.setContent(
-      `<div>🍺 <a href="" class="placeName">${place.name}</a>
-      <br> ${place.formatted_address}</div>`);
+      `<div>🍺 <a href="#${placeName}" class="placeName">${place.name}</a>
+      <br> ${place.vicinity}</div>`);
       infowindow.open(map, this);
     });
-  };
+  }
 
 
 
+  // request = {
+  //   reference: place.reference
+  // };
+  //
+  // breweries.getDetails(request, function(details, status) {
+  //   google.maps.event.addListener(marker, 'click', function() {
+  //     infowindow.setContent(
+  //       details.name + "<br />" + details.formatted_address +"<br />" + details.website + "<br />" + details.rating + "<br />" + details.formatted_phone_number);
+  //
+  //     infowindow.open(map, this);
+  //   });
+  // });
 
 
 

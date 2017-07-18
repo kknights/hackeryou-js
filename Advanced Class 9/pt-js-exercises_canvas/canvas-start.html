@@ -16,30 +16,67 @@
 
   </form>
 
-  <canvas class="draw" width="1000" height="1000"></canvas>
+  <canvas class="draw" width='1000' height='1000'></canvas>
   <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background:#1D425D;
-      text-align: center;
-    }
+  body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background:#1D425D;
+    text-align: center;
+  }
 
-    .draw {
-      margin:50px auto;
-      border:2px solid white;
-    }
+  .draw {
+    margin:50px auto;
+    border:2px solid white;
+  }
 
-    .draw:active {
-      cursor:crosshair;
-    }
+  .draw:active {
+    cursor:crosshair;
+  }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
   <script>
-    // lets go
+
+  $(function(){
+    var canvas = $('.draw')[0];
+    var ctx = canvas.getContext('2d');
+    ctx.strokeStyle = $('[name="color"]').val();
+    ctx.lineWidth = $('[name="width"]').val();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    var mouseDown = false;
+
+    $(canvas).on('mousemove', function(e){
+
+      if(mouseDown){
+        ctx.beginPath();
+        ctx.moveTo(lastevent.offsetX, lastevent.offsetY);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        ctx.closePath();
+      }
+
+    });
+
+    $(canvas).on('mousedown', function(e){
+      lastevent = e;
+      mouseDown = true;
+      console.log(e);
+    });
+
+    $(canvas).on('mouseup', function(){
+      mouseDown = false;
+    });
+
+    $('.settings input').on('change', function(){
+      ctx.strokeStyle=$('[name="color"]').val();
+      ctx.lineWidth = $('[name="width"]').val();
+    })
+
+  })
   </script>
 
 </body>
