@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+  <form action="" class="settings">
+
+    <label for="color">Color</label>
+    <input type="color" name="color" value="#BADA55">
+    <label for="width">Line Width:</label>
+    <input type="range" name="width" min="1" max="100" value="10">
+
+    <a class="download" href="#">Download</a>
+
+  </form>
+
+  <canvas class="draw" width="1000" height="1000"></canvas>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background:#1D425D;
+      text-align: center;
+    }
+
+    .draw {
+      margin:50px auto;
+      border:2px solid white;
+    }
+
+    .draw:active {
+      cursor:crosshair;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script>
+    var canvas = $('canvas')[0];
+    var ctx = canvas.getContext('2d');
+    var mouseDown = false;
+    var lastEvent;
+
+    // settings
+    ctx.strokeStyle = $('[name="color"]').val();
+    ctx.lineWidth = $('[name="width"]').val();
+    ctx.lineCap="round";
+    ctx.lineJoin="round";
+
+
+    $('.draw').on('mousedown',function(e) {
+      lastEvent = e;
+      mouseDown = true;
+    });
+
+    $('.draw').on('mousemove',function(e) {
+      if(!mouseDown) {
+        return;
+      }
+      ctx.beginPath();
+      ctx.moveTo(lastEvent.offsetX, lastEvent.offsetY);
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+      ctx.closePath();
+      lastEvent = e;
+
+    });
+
+    $('.draw').on('mouseup',function() {
+      mouseDown = false;
+    });
+
+    $('.settings input').on('change',function() {
+      ctx.strokeStyle = $('[name="color"]').val();
+      ctx.lineWidth = $('[name="width"]').val();
+    });
+
+  </script>
+
+</body>
+</html>

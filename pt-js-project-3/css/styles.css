@@ -53,9 +53,12 @@ button:hover {
 .map_wrapper {
   display: none;
   width: 100%;
-  background: #201f1e;
+  background: rgba(0, 0, 0, 0.8);
   padding: 20px;
   min-height: 400px;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+
 }
 #map {
   width: 50%;
@@ -63,6 +66,19 @@ button:hover {
   outline: 1px solid #000;
   margin: 20px;
   background: url('../img/beer.gif') no-repeat center center #201f1e;
-  border: 0;
-  border-width: 0;
+  border: 1px solid #333;
+}
+
+
+#footer {
+  background: #000;
+  min-height: 300px;
+
+}
+
+#footer h3 {
+  font-family: 'Open Sans', sans-serif;
+  margin:0;
+  padding: 0;
+  color: #e8b504;
 }
