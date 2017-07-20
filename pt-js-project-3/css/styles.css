@@ -72,11 +72,12 @@ button:hover {
 }
 
 #brewery-info {
-
+  font-family: 'Open Sans', sans-serif;
   width: 30%;
   height: 600px;
   float: left;
   background: #333;
+  color: #fff;
   outline: 1px solid red;
 
 }

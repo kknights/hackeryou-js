@@ -1,11 +1,12 @@
 //TODO: ADD IN CURRENT LOCATION MARKER
-//TODO: POPULATE INFO WINDOW
 //TODO: GET DIRECTIONS
 //TODO: GET WEATHER
 //TODO: GET REVIEWS AND/OR PHOTOS
 //TODO: TIDY UP CODE FOR CONSISTENCY
 //TODO: SLIDE DOWN TO #MAP
 
+
+//√ TODO: POPULATE INFO WINDOW
 //√ TODO: ADD FANCY ANIMATION TO THE TITLE (SPINNING, ZOOM, ETC)
 //√ TODO: SNAZZY MAPS
 
@@ -20,7 +21,12 @@ const $map = $('#map');
 let currentLocation,
 longitude,
 latitude,
-request;
+request,
+placeName,
+placeAddress,
+placeRating,
+placePhotos,
+placeID;
 
 // 1. GET USER'S CURRENT LOCATION, THEN LOAD GOOGLE API SCRIPT
 app.getCurrentLocation = function(){
@@ -31,7 +37,6 @@ app.getCurrentLocation = function(){
       console.log("Aww snap. Geolocation is not supported by this browser.");
     }
   };
-
   app.coords = function(position){
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
@@ -60,9 +65,6 @@ function initMap() {
 
   infowindow = new google.maps.InfoWindow();
 
-
-  // var service = new google.maps.places.PlacesService(map);
-
   var breweries = new google.maps.places.PlacesService(map);
   breweries.nearbySearch({
     location: currentLocation ,
@@ -70,18 +72,6 @@ function initMap() {
     type: ['bar'],
     keyword: ['brewery']
   }, callback);
-
-  // // this is needed to get address and stuff
-  // request = {
-  //   reference: place.reference
-  // };
-  //
-  // breweries.getDetails(request, function(details, status) {
-  //   google.maps.event.addListener(marker, 'click', function() {
-  //     infowindow.setContent(details.name + "<br />" + details.formatted_address +"<br />" + details.website + "<br />" + details.rating + "<br />" + details.formatted_phone_number);
-  //     infowindow.open(map, this);
-  //   });
-  // });
 }
 
 function callback(results, status) {
@@ -98,59 +88,55 @@ function createMarker(place) {
     map: map,
     position: place.geometry.location,
     reference: place.reference
-    //
   });
 
   // INFOWINDOW
   google.maps.event.addListener(marker, 'click', function() {
-    let placeName = place.name;
+
+    placeName = place.name;
+    placeAddress = place.vicinity;
+    placeRating = place.rating;
+    placePhotos = place.photos.getUrl; //doesnt work
+    place_Id = place.place_id;
+
+
+    // GET REVIEWS
+    // let request = {
+    //   placeID: place_Id
+    // };
+    //
+    // let service = new google.maps.places.PlacesService(map);
+    //
+    // service.getDetails(request, function(place, status) {
+    //    if (status == google.maps.places.PlacesServiceStatus.OK) {
+    //      console.log(place.reviews);
+    //    }
+    //  });
+
+
+    // console.log(placeID);
+
     infowindow.setContent(
-      `<div>🍺 <a href="#${placeName}" class="placeName">${place.name}</a>
-      <br> ${place.vicinity}</div>`);
+      `<div>🍺 <a href="#${placeName}" class="placeName">${placeName}</a>
+      <br> ${placeAddress}</div>`);
+
       infowindow.open(map, this);
+      app.infoPanel();
     });
   }
 
+  //INFOPANEL SIDEBAR THING
+  app.infoPanel = function(){
 
+    $('.placeName').on('click', function(){
+      app.getBreweries();
 
-  // request = {
-  //   reference: place.reference
-  // };
-  //
-  // breweries.getDetails(request, function(details, status) {
-  //   google.maps.event.addListener(marker, 'click', function() {
-  //     infowindow.setContent(
-  //       details.name + "<br />" + details.formatted_address +"<br />" + details.website + "<br />" + details.rating + "<br />" + details.formatted_phone_number);
-  //
-  //     infowindow.open(map, this);
-  //   });
-  // });
+      const breweryInfo = $('#brewery-info');
+      $('.brewery-name').text(placeName);
+      $('.brewery-address').text(placeAddress);
 
-
-
-
-
-  //3. Make a custom marker that has important info in it
-  // app.googleMaps.makeMarker = function(coords, infoText, icon){
-  //   var mapMarker = new google.maps.Marker({
-  //     position: {lat:coords.latitude, lng: coords.longitude},
-  //     map: app.map,
-  //     icon: icon,
-  //   });
-  // //
-  // var infoWindow = new google.maps.InfoWindow();
-  //
-  // google.maps.event.addListener(mapMarker, 'click', function(){
-  //   infoWindow.setContent(infoText);
-  //   infoWindow.setPosition({lat:coords.latitude, lng: coords.longitude});
-  //   infoWindow.open(app.map,  mapMarker);
-  // });
-  //   };
-  // };
-
-
-
-
+    });
+  }
 
 
   //THIS WORKS, DO NOT DELETE
@@ -162,10 +148,11 @@ function createMarker(place) {
       type: 'GET',
       dataType: 'json',
       data: {
-        reqUrl: 'http://api.brewerydb.com/v2/beers',
+        reqUrl: 'http://api.brewerydb.com/v2/breweries',
         params: {
-          "key" :brewerydbApi,
-          "styleId" :1
+          "key": brewerydbApi,
+          "styleId": 1,
+          "name": placeName
         },
         useCache: true,
         proxyHeaders: {
@@ -173,9 +160,9 @@ function createMarker(place) {
         }
       }
     }).then(function(res) {
-      // console.log(res);
-    },console.log);
-  }
+      console.log(res);
+    });
+  };
 
 
   app.snazzyMap = [
@@ -579,14 +566,14 @@ function createMarker(place) {
   app.init = function() {
     // app.getBreweries();
 
-    // $('h1').addClass('animated jackInTheBox');
+    const $button = $('button');
 
-    $('button').on('click', function(){
+    $($button).on('click', function(){
       map_wrapper.show();
       app.getCurrentLocation();
     });
 
-    $('button').hover(
+    $($button).hover(
       function(){
         $(this).toggleClass('animated pulse infinite')
       }
@@ -596,3 +583,23 @@ function createMarker(place) {
 
 
   };
+
+
+
+  //3. Make a custom marker that has important info in it
+  // app.googleMaps.makeMarker = function(coords, infoText, icon){
+  //   var mapMarker = new google.maps.Marker({
+  //     position: {lat:coords.latitude, lng: coords.longitude},
+  //     map: app.map,
+  //     icon: icon,
+  //   });
+  // //
+  // var infoWindow = new google.maps.InfoWindow();
+  //
+  // google.maps.event.addListener(mapMarker, 'click', function(){
+  //   infoWindow.setContent(infoText);
+  //   infoWindow.setPosition({lat:coords.latitude, lng: coords.longitude});
+  //   infoWindow.open(app.map,  mapMarker);
+  // });
+  //   };
+  // };

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Charts</title>
+	<!-- Load c3.css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css" />
+</head>
+<body>
+
+<div id="chart-one"></div>
+
+
+<!-- Load d3.js and c3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+
+
+<script>
+	var names = ['trudy', 'jordan', 'drew', 'tom', 'jerry']
+
+
+	var chart = c3.generate({
+		bindto: '#chart-one',
+    data: {
+	    columns: [
+	        ['data1', 30, 40, 25, 15, 37], 
+	        ['data2', 90, 130, 107, 80, 90],
+	        ['data3', 10, 40, 65, 45, 27],
+	        ['data4', 120, 130, 110, 100, 49]
+	    		],
+	    // type : 'bar',
+      groups: [
+          ['data1', 'data2'],
+          ['data3', 'data4']
+      ],
+	    types: {
+	    	data1: 'spline',
+	    	data2: 'bar',
+	    	data3: 'area',
+	    	data4: 'scatter'
+	    },
+	    onclick: function (d, e) { console.log("onclick", d, e); },
+    },
+    axis: {
+    	x: {
+    		type: 'category',
+    		categories: ['type a', 'type b', 'type c', 'type d', 'type e', 'type f']
+    	}
+    },
+    tooltip: {
+    	format: {
+    		title: function(d) {return names[d]}
+	    }
+    },
+   	color: {
+   		pattern: ['#CE599D', '#68C2BF', '#9DD5DB', '#D5DED0']
+   	}
+	});
+
+</script>
+	
+</body>
+</html>
