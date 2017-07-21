@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'/>
+  <title>Vue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.3/css/bulma.min.css">
+</head>
+<body>
+
+  <div id="app">
+
+    <button v-on:click="toggleText">
+      <span v-if="showText">Show text</span>
+      <span v-else>Hide text</span>
+    </button>
+
+    <p v-show="showText">{{ message }}</p>
+
+    <input type="text" value="" v-model="message" >
+    <button v-on:click="addToToDo">Add to ToDos</button>
+
+    <ul>
+      <li v-for="todo in todoItems">{{ todo }}</li>
+    </ul>
+
+  </div>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.1/vue.min.js"></script>
+  <script>
+
+  new Vue({
+    el: '#app',
+    data: {
+      message: 'hello world',
+      todoItems: ['item 1', 'item 2', 'item 3'],
+      showText: false,
+      visibleText: 'show text'
+    },
+    methods: {
+      toggleText: function(){
+        this.showText = !this.showText;
+      },
+      addToToDo: function(){
+        if (this.message != ' '){
+          this.todoItems.push(this.message);
+          this.message = ' ';
+        }
+      }
+    }
+  });
+
+  </script>
+
+</body>
+</html>

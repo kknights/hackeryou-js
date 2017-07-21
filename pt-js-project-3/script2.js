@@ -1,4 +1,3 @@
-//TODO: ADD IN CURRENT LOCATION MARKER
 //TODO: GET DIRECTIONS
 //TODO: GET WEATHER
 //TODO: GET REVIEWS AND/OR PHOTOS
@@ -6,6 +5,9 @@
 //TODO: SLIDE DOWN TO #MAP
 
 
+
+//√ TODO: filter out coffeeshops
+//√ TODO: ADD IN CURRENT LOCATION MARKER
 //√ TODO: POPULATE INFO WINDOW
 //√ TODO: ADD FANCY ANIMATION TO THE TITLE (SPINNING, ZOOM, ETC)
 //√ TODO: SNAZZY MAPS
@@ -37,6 +39,7 @@ app.getCurrentLocation = function(){
       console.log("Aww snap. Geolocation is not supported by this browser.");
     }
   };
+
   app.coords = function(position){
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
@@ -52,10 +55,7 @@ app.getCurrentLocation = function(){
   app.getLocation();
 };
 
-
-
 // 2. DISPLAY GOOGLE MAP WITH SEARCH QUERIES
-// app.initMap = function(){
 function initMap() {
   map = new google.maps.Map( document.getElementById('map'), {
     center: currentLocation,
@@ -65,12 +65,12 @@ function initMap() {
 
   infowindow = new google.maps.InfoWindow();
 
-  var breweries = new google.maps.places.PlacesService(map);
+  let breweries = new google.maps.places.PlacesService(map);
   breweries.nearbySearch({
     location: currentLocation ,
     radius: 5000,
     type: ['bar'],
-    keyword: ['brewery']
+    keyword: ['beer', 'brewery']
   }, callback);
 }
 
@@ -80,526 +80,532 @@ function callback(results, status) {
       createMarker(results[i]);
     }
   }
-}
+};
 
-function createMarker(place) {
-  var placeLoc = place.geometry.location;
-  var marker = new google.maps.Marker({
+
+
+// SEARCH RESULTS MARKERS
+function createMarker(place, icon) {
+  let marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location,
-    reference: place.reference
+    reference: place.reference,
+    icon: 'img/icon_breweries.png'
   });
 
-  // INFOWINDOW
-  google.maps.event.addListener(marker, 'click', function() {
-
-    placeName = place.name;
-    placeAddress = place.vicinity;
-    placeRating = place.rating;
-    placePhotos = place.photos.getUrl; //doesnt work
-    place_Id = place.place_id;
-
-
-    // GET REVIEWS
-    // let request = {
-    //   placeID: place_Id
-    // };
-    //
-    // let service = new google.maps.places.PlacesService(map);
-    //
-    // service.getDetails(request, function(place, status) {
-    //    if (status == google.maps.places.PlacesServiceStatus.OK) {
-    //      console.log(place.reviews);
-    //    }
-    //  });
+  // CURRENT LOCATION MARKER
+  let currentMarker = new google.maps.Marker({
+    map: map,
+    position: currentLocation,
+    reference: place.reference,
+    icon: 'img/icon_current.png'
+  });
 
 
-    // console.log(placeID);
-
+  //CURRENT INFOWINDOW
+  google.maps.event.addListener(currentMarker, 'click', function() {
     infowindow.setContent(
-      `<div>🍺 <a href="#${placeName}" class="placeName">${placeName}</a>
-      <br> ${placeAddress}</div>`);
-
+      `📌 You are here`);
       infowindow.open(map, this);
       app.infoPanel();
     });
-  }
 
-  //INFOPANEL SIDEBAR THING
-  app.infoPanel = function(){
+    // SEARCH RESULT INFOWINDOW
+    google.maps.event.addListener(marker, 'click', function() {
+      placeName = place.name;
+      placeAddress = place.vicinity;
+      placeRating = place.rating;
+      placePhotos = place.photos.getUrl; //doesnt work
+      // place_Id = place.place_id;
 
-    $('.placeName').on('click', function(){
-      app.getBreweries();
-
-      const breweryInfo = $('#brewery-info');
-      $('.brewery-name').text(placeName);
-      $('.brewery-address').text(placeAddress);
-
-    });
-  }
-
-
-  //THIS WORKS, DO NOT DELETE
-  app.getBreweries = function(query){
-    const brewerydbApi = 'b19fc49067f350df42af947a48da966e';
-
-    $.ajax({
-      url: 'http://proxy.hackeryou.com',
-      type: 'GET',
-      dataType: 'json',
-      data: {
-        reqUrl: 'http://api.brewerydb.com/v2/breweries',
-        params: {
-          "key": brewerydbApi,
-          "styleId": 1,
-          "name": placeName
-        },
-        useCache: true,
-        proxyHeaders: {
-          'X-Something-Cool':'whoooooa'
-        }
-      }
-    }).then(function(res) {
-      console.log(res);
-    });
-  };
+      // console.log(place);
+      infowindow.setContent(
+        `<div class="info-window">
+        <a href="#${placeName}" class="placeName">🍺 ${placeName}</a>
+        <p>${placeAddress}</p>
+        <p>Get directions</p>
+        </div>`);
 
 
-  app.snazzyMap = [
-    {
-      "featureType": "administrative",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.country",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#ffe5ad"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.country",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.province",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#ffe5ad"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.province",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#5d3e3e"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.locality",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#ffe5ad"
-        },
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.locality",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.neighborhood",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#ffe5ad"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.neighborhood",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.land_parcel",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#ffe5ad"
-        },
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative.land_parcel",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.man_made",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#ffe5ad"
-        },
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.man_made",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.man_made",
-      "elementType": "labels",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.natural",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#fef2dd"
-        },
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.natural",
-      "elementType": "labels.icon",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.natural.landcover",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#fef2dd"
-        },
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "landscape.natural.terrain",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#fef2dd"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.attraction",
-      "elementType": "all",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.attraction",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.business",
-      "elementType": "all",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.business",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.government",
-      "elementType": "all",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.government",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.medical",
-      "elementType": "all",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.medical",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.park",
-      "elementType": "all",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.park",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#e7fed2"
-        },
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.place_of_worship",
-      "elementType": "all",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.place_of_worship",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.school",
-      "elementType": "all",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.school",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.sports_complex",
-      "elementType": "all",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.sports_complex",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        },
-        {
-          "color": "#65b76b"
-        }
-      ]
-    },
-    {
-      "featureType": "road.highway.controlled_access",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "road.arterial",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        },
-        {
-          "hue": "#ff0000"
-        }
-      ]
-    },
-    {
-      "featureType": "road.local",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "transit",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "transit.station",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "visibility": "on"
-        }
-      ]
-    },
-    {
-      "featureType": "water",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#3daed1"
-        }
-      ]
+        // GET REVIEWS
+        let request = {
+          placeID:  place.place_id
+        };
+
+        console.log(request);
+        // console.log(request);
+
+        let reviews = new google.maps.places.PlacesService(map);
+
+        reviews.getDetails(request, function(place, status) {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            console.log(place.reviews);
+          }
+        });
+
+
+
+        infowindow.open(map, this);
+        app.infoPanel();
+      });
     }
-  ];
 
 
 
-  app.init = function() {
-    // app.getBreweries();
 
-    const $button = $('button');
 
-    $($button).on('click', function(){
-      map_wrapper.show();
-      app.getCurrentLocation();
-    });
 
-    $($button).hover(
-      function(){
-        $(this).toggleClass('animated pulse infinite')
+    //INFOPANEL SIDEBAR THING
+    app.infoPanel = function(){
+      $('.placeName').on('click', function(){
+        const breweryInfo = $('#brewery-info');
+        $('.brewery-name').text(placeName);
+        $('.brewery-address').text(placeAddress);
+        $('.brewery-rating').text(placeRating);
+      });
+    }
+
+    app.snazzyMap = [
+      {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#ffe5ad"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.province",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#ffe5ad"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.province",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "color": "#5d3e3e"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.locality",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#ffe5ad"
+          },
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.locality",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.neighborhood",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#ffe5ad"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.neighborhood",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#ffe5ad"
+          },
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#ffe5ad"
+          },
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.man_made",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.natural",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#fef2dd"
+          },
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.natural",
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.natural.landcover",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#fef2dd"
+          },
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.natural.terrain",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#fef2dd"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.attraction",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.attraction",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.business",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.business",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.government",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.government",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.medical",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.medical",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#e7fed2"
+          },
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.place_of_worship",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.place_of_worship",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.school",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.school",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.sports_complex",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.sports_complex",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          },
+          {
+            "color": "#65b76b"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway.controlled_access",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          },
+          {
+            "hue": "#ff0000"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.station",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#3daed1"
+          }
+        ]
       }
-    );
+    ];
+
+
+
+    app.init = function() {
+
+      const $button = $('button');
+
+      $($button).on('click', function(){
+        map_wrapper.show();
+        app.getCurrentLocation();
+      });
+
+      $($button).hover(
+        function(){
+          $(this).toggleClass('animated pulse infinite')
+        }
+      );
+    };
 
 
 
 
-  };
 
 
 
-  //3. Make a custom marker that has important info in it
-  // app.googleMaps.makeMarker = function(coords, infoText, icon){
-  //   var mapMarker = new google.maps.Marker({
-  //     position: {lat:coords.latitude, lng: coords.longitude},
-  //     map: app.map,
-  //     icon: icon,
-  //   });
-  // //
-  // var infoWindow = new google.maps.InfoWindow();
-  //
-  // google.maps.event.addListener(mapMarker, 'click', function(){
-  //   infoWindow.setContent(infoText);
-  //   infoWindow.setPosition({lat:coords.latitude, lng: coords.longitude});
-  //   infoWindow.open(app.map,  mapMarker);
-  // });
-  //   };
-  // };
+    //THIS WORKS, DO NOT DELETE
+    // app.getBreweries = function(query){
+    //   const brewerydbApi = 'b19fc49067f350df42af947a48da966e';
+    //
+    //   $.ajax({
+    //     url: 'http://proxy.hackeryou.com',
+    //     type: 'GET',
+    //     dataType: 'json',
+    //     data: {
+    //       reqUrl: 'http://api.brewerydb.com/v2/breweries',
+    //       params: {
+    //         "key": brewerydbApi,
+    //         "styleId": 1,
+    //         "name": placeName
+    //       },
+    //       useCache: true,
+    //       proxyHeaders: {
+    //         'X-Something-Cool':'whoooooa'
+    //       }
+    //     }
+    //   }).then(function(res) {
+    //     console.log(res);
+    //   });
+    // };

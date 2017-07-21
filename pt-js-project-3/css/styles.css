@@ -79,8 +79,28 @@ button:hover {
   background: #333;
   color: #fff;
   outline: 1px solid red;
-
 }
+
+
+.info-window {
+}
+.info-window a {
+  display: block;
+  text-decoration: none;
+  color:#dd4b39;
+}
+
+.info-window a:hover {
+  font-weight: bold;
+}
+/*
+.info-window .place-rating {
+  border: 1px solid #000;
+  right: 20px;
+  font-size: 20px;
+  padding: 20px;
+  position: absolute;
+}*/
 
 #footer {
   background: #000;
