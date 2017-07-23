@@ -76,6 +76,7 @@ function initMap() {
 
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
+
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]);
     }
@@ -117,6 +118,7 @@ function createMarker(place, icon) {
       placeRating = place.rating;
       placePhotos = place.photos.getUrl; //doesnt work
       // place_Id = place.place_id;
+      // console.log(place.place_id);
 
       // console.log(place);
       infowindow.setContent(
@@ -128,20 +130,15 @@ function createMarker(place, icon) {
 
 
         // GET REVIEWS
-        let request = {
-          placeID:  place.place_id
-        };
-
-        console.log(request);
-        // console.log(request);
-
-        let reviews = new google.maps.places.PlacesService(map);
-
-        reviews.getDetails(request, function(place, status) {
-          if (status == google.maps.places.PlacesServiceStatus.OK) {
-            console.log(place.reviews);
-          }
-        });
+        // let request =  place.place_id;
+        // console.log(place.place_id);
+        // let reviews = new google.maps.places.PlacesService(map);
+        //
+        // reviews.getDetails(request, function(place, status) {
+        //   if (status == google.maps.places.PlacesServiceStatus.OK) {
+        //     console.log(place.reviews);
+        //   }
+        // });
 
 
 

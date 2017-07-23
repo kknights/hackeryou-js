@@ -5,6 +5,8 @@ body {
   margin:0;
   padding: 0;
   background: url('../img/2.jpg') #e1e1e1;
+  font-family: 'Open Sans', sans-serif;
+
 }
 h1 {
   font-family: 'Lobster', cursive;
@@ -19,7 +21,6 @@ h1 {
 
 span {
   color: #e8b504;
-  /*text-shadow: -2px 0 #000000,0 2px #000000,2px 0 #000000,0 -2px #000000;*/
   text-shadow: 1px 1px 2px black;
 }
 
@@ -70,17 +71,41 @@ button:hover {
   float: left;
 }
 
+
 #brewery-info {
   font-family: 'Open Sans', sans-serif;
-  width: 30%;
+  width: 40%;
   height: 600px;
   float: left;
   background: #333;
   color: #fff;
-  outline: 1px solid red;
 }
 
 
+.brewery-name {
+  font-family: 'Lobster', cursive;
+  display: inline-block;
+  font-size: 35px;
+  color: #e8b504;
+  margin-bottom: 0;
+  text-shadow: 1px 1px 2px black;
+
+}
+
+.brewery-rating {
+  font-family: 'Lobster', cursive;
+  font-size: 25px;
+  vertical-align: super;
+  display: inline-block;
+  outline: 1px solid #fff;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+.brewery-address {
+  padding: 0;
+  margin: 0;
+}
 .info-window {
 }
 .info-window a {
@@ -92,14 +117,7 @@ button:hover {
 .info-window a:hover {
   font-weight: bold;
 }
-/*
-.info-window .place-rating {
-  border: 1px solid #000;
-  right: 20px;
-  font-size: 20px;
-  padding: 20px;
-  position: absolute;
-}*/
+
 
 #footer {
   background: #000;
@@ -109,8 +127,20 @@ button:hover {
 }
 
 #footer h3 {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Lobster', cursive;
+  font-size: 30px;
   margin:0;
   padding: 0;
   color: #e8b504;
+}
+
+#footer ul {
+  color: #fff;
+  list-style-type: none;
+}
+
+#footer ul li:before {
+  content: '•';
+  color: #e8b504;
+  margin-right: 5px;
 }
