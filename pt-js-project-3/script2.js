@@ -24,16 +24,15 @@ const map_wrapper = $('.map_wrapper');
 const $map = $('#map');
 
 let currentLocation,
-  longitude,
-  latitude,
-  request,
-  place,
-  placeName,
-  placeAddress,
-  placeRating,
-  placeReviews,
-  placePhotos,
-  placeID;
+longitude,
+latitude,
+place,
+placeName,
+placeAddress,
+placeRating,
+placeReviews,
+placePhotos,
+placeID;
 
 // 1. GET USER'S CURRENT LOCATION, THEN LOAD GOOGLE API SCRIPT
 app.getCurrentLocation = function(){
@@ -62,7 +61,7 @@ app.getCurrentLocation = function(){
 
 // 2. DISPLAY GOOGLE MAP SHOWING BREWERIES ETC
 initMap = function(){
-    map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: currentLocation,
     zoom: 13,
     styles: app.snazzyMap
@@ -99,21 +98,21 @@ app.createMarker = function(place, icon){
     icon: 'img/icon_breweries.png'
   });
 
-    // current location marker
-    let currentMarker = new google.maps.Marker({
-      map: map,
-      position: currentLocation,
-      reference: place.reference,
-      icon: 'img/icon_current.png'
-    });
+  // current location marker
+  let currentMarker = new google.maps.Marker({
+    map: map,
+    position: currentLocation,
+    reference: place.reference,
+    icon: 'img/icon_current.png'
+  });
 
   // current info window
-    google.maps.event.addListener(currentMarker, 'click', function() {
-      infowindow.setContent(
-        `📌 You are here`);
-        infowindow.open(map, this);
-        app.infoPanel();
-      });
+  google.maps.event.addListener(currentMarker, 'click', function() {
+    infowindow.setContent(
+      `📌 You are here`);
+      infowindow.open(map, this);
+      app.infoPanel();
+    });
 
     // search result info windows
     google.maps.event.addListener(marker, 'click', function() {
@@ -139,21 +138,23 @@ app.createMarker = function(place, icon){
 
     // GET REVIEWS
     app.getReviews = function(){
-
       let request = {
         placeId: placeID
       };
-
 
       service = new google.maps.places.PlacesService(map);
       service.getDetails(request, callback);
 
       function callback(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          app.createMarker(place);
-          console.log('is this thing on');
-          let rating = document.querySelector('#rating');
-          let reviewEl = document.querySelector('.review-list');
+
+          // let rating = document.querySelector('#rating');
+          // let reviewEl = document.querySelector('.review-list');
+
+          let rating = $('#rating');
+          let reviewList = $('.review-list');
+
+          reviewList.empty();
 
           rating.innerHTML = place.rating;
 
@@ -162,7 +163,7 @@ app.createMarker = function(place, icon){
             li.innerHTML = `<div>Author: ${review.author_name}</div>
             <em>${review.text}</em>
             <div>Rating: ${review.rating} star(s)</div>`;
-            reviewEl.appendChild(li);
+            reviewList.append(li);
           }
         }
       }
