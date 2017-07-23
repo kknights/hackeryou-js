@@ -4,8 +4,7 @@
 body {
   margin:0;
   padding: 0;
-  background: #e1e1e1;
-
+  background: url('../img/2.jpg') #e1e1e1;
 }
 h1 {
   font-family: 'Lobster', cursive;
@@ -105,6 +104,7 @@ button:hover {
 #footer {
   background: #000;
   min-height: 300px;
+  padding: 40px;
 
 }
 
