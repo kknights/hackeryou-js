@@ -1,11 +1,14 @@
 //TODO: GET DIRECTIONS
 //TODO: GET WEATHER
 //TODO: GET REVIEWS AND/OR PHOTOS
-//TODO: TIDY UP CODE FOR CONSISTENCY
 //TODO: SLIDE DOWN TO #MAP
 
 
 
+
+
+
+//√ TODO: TIDY UP CODE FOR CONSISTENCY
 //√ TODO: filter out coffeeshops
 //√ TODO: ADD IN CURRENT LOCATION MARKER
 //√ TODO: POPULATE INFO WINDOW
@@ -21,14 +24,16 @@ const map_wrapper = $('.map_wrapper');
 const $map = $('#map');
 
 let currentLocation,
-longitude,
-latitude,
-request,
-placeName,
-placeAddress,
-placeRating,
-placePhotos,
-placeID;
+  longitude,
+  latitude,
+  request,
+  place,
+  placeName,
+  placeAddress,
+  placeRating,
+  placeReviews,
+  placePhotos,
+  placeID;
 
 // 1. GET USER'S CURRENT LOCATION, THEN LOAD GOOGLE API SCRIPT
 app.getCurrentLocation = function(){
@@ -55,9 +60,9 @@ app.getCurrentLocation = function(){
   app.getLocation();
 };
 
-// 2. DISPLAY GOOGLE MAP WITH SEARCH QUERIES
-function initMap() {
-  map = new google.maps.Map( document.getElementById('map'), {
+// 2. DISPLAY GOOGLE MAP SHOWING BREWERIES ETC
+initMap = function(){
+    map = new google.maps.Map(document.getElementById('map'), {
     center: currentLocation,
     zoom: 13,
     styles: app.snazzyMap
@@ -66,27 +71,27 @@ function initMap() {
   infowindow = new google.maps.InfoWindow();
 
   let breweries = new google.maps.places.PlacesService(map);
+
   breweries.nearbySearch({
     location: currentLocation ,
     radius: 5000,
     type: ['bar'],
     keyword: ['beer', 'brewery']
   }, callback);
-}
+};
 
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
-
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
+      app.createMarker(results[i]);
     }
   }
-};
+}
 
+// 3. CREATE SEARCH RESULTS MARKERS AND INFOWINDOS
+app.createMarker = function(place, icon){
 
-
-// SEARCH RESULTS MARKERS
-function createMarker(place, icon) {
+  // search result markers
   let marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location,
@@ -94,33 +99,31 @@ function createMarker(place, icon) {
     icon: 'img/icon_breweries.png'
   });
 
-  // CURRENT LOCATION MARKER
-  let currentMarker = new google.maps.Marker({
-    map: map,
-    position: currentLocation,
-    reference: place.reference,
-    icon: 'img/icon_current.png'
-  });
-
-
-  //CURRENT INFOWINDOW
-  google.maps.event.addListener(currentMarker, 'click', function() {
-    infowindow.setContent(
-      `📌 You are here`);
-      infowindow.open(map, this);
-      app.infoPanel();
+    // current location marker
+    let currentMarker = new google.maps.Marker({
+      map: map,
+      position: currentLocation,
+      reference: place.reference,
+      icon: 'img/icon_current.png'
     });
 
-    // SEARCH RESULT INFOWINDOW
+  // current info window
+    google.maps.event.addListener(currentMarker, 'click', function() {
+      infowindow.setContent(
+        `📌 You are here`);
+        infowindow.open(map, this);
+        app.infoPanel();
+      });
+
+    // search result info windows
     google.maps.event.addListener(marker, 'click', function() {
       placeName = place.name;
       placeAddress = place.vicinity;
       placeRating = place.rating;
       placePhotos = place.photos.getUrl; //doesnt work
-      // place_Id = place.place_id;
-      // console.log(place.place_id);
+      placeReviews = place.reviews;
+      placeID = place.place_id;
 
-      // console.log(place);
       infowindow.setContent(
         `<div class="info-window">
         <a href="#${placeName}" class="placeName">🍺 ${placeName}</a>
@@ -128,29 +131,42 @@ function createMarker(place, icon) {
         <p>Get directions</p>
         </div>`);
 
-
-        // GET REVIEWS
-        // let request =  place.place_id;
-        // console.log(place.place_id);
-        // let reviews = new google.maps.places.PlacesService(map);
-        //
-        // reviews.getDetails(request, function(place, status) {
-        //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-        //     console.log(place.reviews);
-        //   }
-        // });
-
-
-
         infowindow.open(map, this);
         app.infoPanel();
+        console.log(place.place_id);
       });
-    }
+    };
+
+    // GET REVIEWS
+    app.getReviews = function(){
+
+      let request = {
+        placeId: placeID
+      };
 
 
+      service = new google.maps.places.PlacesService(map);
+      service.getDetails(request, callback);
 
+      function callback(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          app.createMarker(place);
+          console.log('is this thing on');
+          let rating = document.querySelector('#rating');
+          let reviewEl = document.querySelector('.review-list');
 
+          rating.innerHTML = place.rating;
 
+          for (let review of place.reviews){
+            let li = document.createElement('li');
+            li.innerHTML = `<div>Author: ${review.author_name}</div>
+            <em>${review.text}</em>
+            <div>Rating: ${review.rating} star(s)</div>`;
+            reviewEl.appendChild(li);
+          }
+        }
+      }
+    };
 
     //INFOPANEL SIDEBAR THING
     app.infoPanel = function(){
@@ -159,8 +175,10 @@ function createMarker(place, icon) {
         $('.brewery-name').text(placeName);
         $('.brewery-address').text(placeAddress);
         $('.brewery-rating').text(placeRating);
+        app.getReviews();
+
       });
-    }
+    };
 
     app.snazzyMap = [
       {
@@ -558,11 +576,9 @@ function createMarker(place, icon) {
       }
     ];
 
-
-
     app.init = function() {
 
-      const $button = $('button');
+      let $button = $('button');
 
       $($button).on('click', function(){
         map_wrapper.show();
@@ -571,7 +587,7 @@ function createMarker(place, icon) {
 
       $($button).hover(
         function(){
-          $(this).toggleClass('animated pulse infinite')
+          $(this).toggleClass('animated pulse infinite');
         }
       );
     };
