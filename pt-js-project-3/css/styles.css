@@ -6,6 +6,7 @@ body {
   padding: 0;
   background: url('../img/2.jpg') #e1e1e1;
   font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
 
 }
 h1 {
