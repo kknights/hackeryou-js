@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lobster|Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Lobster|Open+Sans:400,400i,600,600i,700,700i');
 @import url('animate.min.css');
 
 body {
@@ -47,7 +47,7 @@ button:hover {
   box-shadow: 1px 1px 2px black;
 }
 
-
+/*GOOGLE MAP*/
 .map_wrapper {
   display: none;
   width: 100%;
@@ -57,8 +57,8 @@ button:hover {
   border-top: 1px solid #666;
   border-bottom: 1px solid #666;
   overflow: auto;
-
 }
+
 #map {
   width: 50%;
   height: 600px;
@@ -69,15 +69,26 @@ button:hover {
   float: left;
 }
 
+/*INFO WINDOW*/
+.info-window a {
+  display: block;
+  text-decoration: none;
+  color:#dd4b39;
+}
 
+.info-window a:hover {
+  font-weight: bold;
+}
+
+
+/*BREWERY INFO*/
 #brewery-info {
+  display: none;
   font-family: 'Open Sans', sans-serif;
   width: 40%;
-  height: 600px;
   float: left;
   color: #fff;
 }
-
 
 .brewery-name {
   font-family: 'Lobster', cursive;
@@ -86,7 +97,10 @@ button:hover {
   color: #e8b504;
   margin-bottom: 0;
   text-shadow: 1px 1px 2px black;
+}
 
+.brewery-address {
+  font-weight: bold;
 }
 
 .brewery-rating {
@@ -103,24 +117,31 @@ button:hover {
   padding: 0;
   margin: 0;
 }
-.info-window {
-}
-.info-window a {
-  display: block;
-  text-decoration: none;
-  color:#dd4b39;
-}
 
-.info-window a:hover {
-  font-weight: bold;
+/*BREWERY REVIEWS*/
+.review-list {
+  list-style-type: none;
+  padding: 0;
+  margin:0;
 }
 
+.review-list li {
+  list-style-type: none;
+  border-bottom: 1px solid #e8b504;
+  padding: 20px 0;
+  margin:0;
+}
 
+.review-list li:last-child {
+  border: 0;
+}
+
+/*FOOTER*/
 #footer {
   background: #000;
   min-height: 300px;
   padding: 40px;
-
+  width: 100%;
 }
 
 #footer h3 {
@@ -140,4 +161,18 @@ button:hover {
   content: '•';
   color: #e8b504;
   margin-right: 5px;
+}
+
+/*MOBILE*/
+@media only screen and (max-width : 767px) {
+  #map {
+    width: 100%;
+    float: none;
+  }
+
+  #brewery-info {
+    width: 100%;
+    float: none;
+  }
+
 }

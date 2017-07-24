@@ -1,8 +1,10 @@
 //TODO: GET DIRECTIONS
 //TODO: SLIDE DOWN TO #MAP
-//TODO: STYLE REVIEWS
 //TODO: namespacing
+//TODO: sticky footer
 
+
+//√ TODO: STYLE REVIEWS
 //√ TODO: GET REVIEWS AND/OR PHOTOS
 //√ TODO: TIDY UP CODE FOR CONSISTENCY
 //√ TODO: filter out coffeeshops
@@ -50,7 +52,9 @@ app.getCurrentLocation = function(){
       lng: longitude
     };
 
-    $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script><script src="https://maps.googleapis.com/maps/api/directions/json?callback=getDirections"></script>');
+    $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>');
+
+    // <script src="https://maps.googleapis.com/maps/api/directions/json?callback=getDirections"></script>
   };
 
   app.getLocation();
@@ -87,9 +91,11 @@ function callback(results, status) {
 }
 
 
-getDirections = function(){
-  console.log('getDirections');
-}
+// getDirections = function(){
+//   console.log('getDirections');
+// }
+
+
 // 3. CREATE SEARCH RESULTS MARKERS AND INFOWINDOS
 app.createMarker = function(place, icon){
   // search result markers
@@ -150,9 +156,6 @@ app.createMarker = function(place, icon){
       function callback(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
 
-          // let rating = document.querySelector('#rating');
-          // let reviewEl = document.querySelector('.review-list');
-
           let rating = $('#rating');
           let reviewList = $('.review-list');
 
@@ -163,18 +166,28 @@ app.createMarker = function(place, icon){
           for (let review of place.reviews){
             let li = document.createElement('li');
             li.innerHTML = `<div>Author: ${review.author_name}</div>
-            <em>${review.text}</em>
-            <div>Rating: ${review.rating} star(s)</div>`;
+            <p>${review.text}</p>
+            <small>Rating: ${review.rating} star(s)</small>`;
             reviewList.append(li);
           }
         }
       }
     };
 
+
+    //GET PHOTOS
+
+
+
+
+
+    
+
     //INFOPANEL SIDEBAR THING
     app.infoPanel = function(){
       $('.placeName').on('click', function(){
         const breweryInfo = $('#brewery-info');
+        breweryInfo.show();
         $('.brewery-name').text(placeName);
         $('.brewery-address').text(placeAddress);
         $('.brewery-rating').text(placeRating);
