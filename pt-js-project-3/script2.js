@@ -91,10 +91,6 @@ function callback(results, status) {
 }
 
 
-// getDirections = function(){
-//   console.log('getDirections');
-// }
-
 
 // 3. CREATE SEARCH RESULTS MARKERS AND INFOWINDOS
 app.createMarker = function(place, icon){
@@ -140,11 +136,26 @@ app.createMarker = function(place, icon){
 
         infowindow.open(map, this);
         app.infoPanel();
-        console.log(place.place_id);
+        //         app.getDirections();
+        // console.log(currentLocation);
+
       });
     };
 
-    // GET REVIEWS
+
+    // // 4. GET DIRECTIONS
+    // app.getDirections = function(){
+    //   // console.log(placeName);
+    //   let origin = currentLocation;
+    //   let destination = placeAddress;
+    //
+    //   console.log(`origin: ${currentLocation}`);
+    //   console.log(`destination: ${destination}`);
+    //
+    // }
+
+
+    // 5. GET REVIEWS
     app.getReviews = function(){
       let request = {
         placeId: placeID
@@ -174,14 +185,6 @@ app.createMarker = function(place, icon){
       }
     };
 
-
-    //GET PHOTOS
-
-
-
-
-
-    
 
     //INFOPANEL SIDEBAR THING
     app.infoPanel = function(){
@@ -594,6 +597,11 @@ app.createMarker = function(place, icon){
 
     app.init = function() {
 
+
+      $('h1').on('click', function(){
+        $(this).toggleClass('animated jackInTheBox');
+      });
+
       let $button = $('button');
 
       $($button).on('click', function(){
@@ -607,34 +615,3 @@ app.createMarker = function(place, icon){
         }
       );
     };
-
-
-
-
-
-
-
-    //THIS WORKS, DO NOT DELETE
-    // app.getBreweries = function(query){
-    //   const brewerydbApi = 'b19fc49067f350df42af947a48da966e';
-    //
-    //   $.ajax({
-    //     url: 'http://proxy.hackeryou.com',
-    //     type: 'GET',
-    //     dataType: 'json',
-    //     data: {
-    //       reqUrl: 'http://api.brewerydb.com/v2/breweries',
-    //       params: {
-    //         "key": brewerydbApi,
-    //         "styleId": 1,
-    //         "name": placeName
-    //       },
-    //       useCache: true,
-    //       proxyHeaders: {
-    //         'X-Something-Cool':'whoooooa'
-    //       }
-    //     }
-    //   }).then(function(res) {
-    //     console.log(res);
-    //   });
-    // };
