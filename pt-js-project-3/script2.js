@@ -1,13 +1,9 @@
 //TODO: GET DIRECTIONS
-//TODO: GET WEATHER
-//TODO: GET REVIEWS AND/OR PHOTOS
 //TODO: SLIDE DOWN TO #MAP
+//TODO: STYLE REVIEWS
+//TODO: namespacing
 
-
-
-
-
-
+//√ TODO: GET REVIEWS AND/OR PHOTOS
 //√ TODO: TIDY UP CODE FOR CONSISTENCY
 //√ TODO: filter out coffeeshops
 //√ TODO: ADD IN CURRENT LOCATION MARKER
@@ -36,6 +32,7 @@ placeID;
 
 // 1. GET USER'S CURRENT LOCATION, THEN LOAD GOOGLE API SCRIPT
 app.getCurrentLocation = function(){
+
   app.getLocation = function(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(app.coords);
@@ -53,11 +50,13 @@ app.getCurrentLocation = function(){
       lng: longitude
     };
 
-    $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>');
+    $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script><script src="https://maps.googleapis.com/maps/api/directions/json?callback=getDirections"></script>');
   };
 
   app.getLocation();
 };
+
+
 
 // 2. DISPLAY GOOGLE MAP SHOWING BREWERIES ETC
 initMap = function(){
@@ -87,9 +86,12 @@ function callback(results, status) {
   }
 }
 
+
+getDirections = function(){
+  console.log('getDirections');
+}
 // 3. CREATE SEARCH RESULTS MARKERS AND INFOWINDOS
 app.createMarker = function(place, icon){
-
   // search result markers
   let marker = new google.maps.Marker({
     map: map,
@@ -109,7 +111,7 @@ app.createMarker = function(place, icon){
   // current info window
   google.maps.event.addListener(currentMarker, 'click', function() {
     infowindow.setContent(
-      `📌 You are here`);
+      `📌  &nbsp;You are here`);
       infowindow.open(map, this);
       app.infoPanel();
     });
