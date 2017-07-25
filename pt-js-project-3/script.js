@@ -30,7 +30,8 @@ placeAddress,
 placeRating,
 placeReviews,
 placePhotos,
-placeID;
+placeID,
+onChangeHandler;
 
 // 1. GET USER'S CURRENT LOCATION, THEN LOAD GOOGLE API SCRIPT
 app.getCurrentLocation = function(){
@@ -80,6 +81,42 @@ initMap = function(){
     type: ['bar'],
     keyword: ['beer', 'brewery']
   }, callback);
+
+  //GET DIRECTIONS
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  // var map = new google.maps.Map(document.getElementById('map'), {
+    // zoom: 7,
+    // center: {lat: 41.85, lng: -87.65}
+  // });
+  directionsDisplay.setMap(map);
+
+  onChangeHandler = function() {
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  };
+
+  $(placeName).on('click', function(){
+    onChangeHandler();
+    console.log('onChangehandler clicked');
+  });
+  // document.getElementsByClassName('placeName').addEventListener('click', onChangeHandler);
+  // document.getElementById('end').addEventListener('change', onChangeHandler);
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  directionsService.route({
+    origin: currentLocation,
+    destination: placeAddress,
+    travelMode: 'DRIVING'
+  }, function(response, status) {
+    if (status === 'OK') {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+
+
 };
 
 function callback(results, status) {
@@ -189,6 +226,8 @@ app.createMarker = function(place, icon){
     //INFOPANEL SIDEBAR THING
     app.infoPanel = function(){
       $('.placeName').on('click', function(){
+        onChangeHandler();
+
         const breweryInfo = $('#brewery-info');
         breweryInfo.show();
         $('.brewery-name').text(placeName);
