@@ -28,9 +28,19 @@ $(function(){
     $messageInput.val('');
     console.log(userName, message);
 
-    chat.limitToLast(10).on('child_added', function(){
+    chat.limitToLast(10).on('child_added', function(data){
 
+      var messages = data.val();
+      var name = messages.name;
+      var text = messages.text;
 
+      var nameEl = $('<strong>').text(name);
+      var messageEl = $('<li>').html(nameEl).append(text);
+
+      $('.messages').append(messageEl);
+
+      console.log(messageEl);
+      // console.log(data);
 
     })
   })

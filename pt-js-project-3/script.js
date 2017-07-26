@@ -1,9 +1,10 @@
-//TODO: GET DIRECTIONS
 //TODO: SLIDE DOWN TO #MAP
 //TODO: namespacing
 //TODO: sticky footer
 
 
+
+//√ TODO: GET DIRECTIONS
 //√ TODO: STYLE REVIEWS
 //√ TODO: GET REVIEWS AND/OR PHOTOS
 //√ TODO: TIDY UP CODE FOR CONSISTENCY
@@ -31,7 +32,7 @@ placeRating,
 placeReviews,
 placePhotos,
 placeID,
-onChangeHandler;
+getDirections;
 
 // 1. GET USER'S CURRENT LOCATION, THEN LOAD GOOGLE API SCRIPT
 app.getCurrentLocation = function(){
@@ -54,26 +55,26 @@ app.getCurrentLocation = function(){
     };
 
     $('.script').after('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAndmRkziZDCACOh54MYbX-yqcLNjioLhc&libraries=places&callback=initMap" async defer></script>');
-
-    // <script src="https://maps.googleapis.com/maps/api/directions/json?callback=getDirections"></script>
   };
-
   app.getLocation();
 };
 
-
-
 // 2. DISPLAY GOOGLE MAP SHOWING BREWERIES ETC
 initMap = function(){
+
+  infowindow = new google.maps.InfoWindow();
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: currentLocation,
     zoom: 13,
     styles: app.snazzyMap
   });
 
-  infowindow = new google.maps.InfoWindow();
 
   let breweries = new google.maps.places.PlacesService(map);
+  let directionsService = new google.maps.DirectionsService;
+  let directionsDisplay = new google.maps.DirectionsRenderer;
+
 
   breweries.nearbySearch({
     location: currentLocation ,
@@ -82,32 +83,19 @@ initMap = function(){
     keyword: ['beer', 'brewery']
   }, callback);
 
-  //GET DIRECTIONS
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
-  // var map = new google.maps.Map(document.getElementById('map'), {
-    // zoom: 7,
-    // center: {lat: 41.85, lng: -87.65}
-  // });
   directionsDisplay.setMap(map);
 
-  onChangeHandler = function() {
+  getDirections = function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
-
-  $(placeName).on('click', function(){
-    onChangeHandler();
-    console.log('onChangehandler clicked');
-  });
-  // document.getElementsByClassName('placeName').addEventListener('click', onChangeHandler);
-  // document.getElementById('end').addEventListener('change', onChangeHandler);
 }
 
+//namespace this?
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   directionsService.route({
     origin: currentLocation,
     destination: placeAddress,
-    travelMode: 'DRIVING'
+    travelMode: 'BICYCLING'
   }, function(response, status) {
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
@@ -226,7 +214,6 @@ app.createMarker = function(place, icon){
     //INFOPANEL SIDEBAR THING
     app.infoPanel = function(){
       $('.placeName').on('click', function(){
-        onChangeHandler();
 
         const breweryInfo = $('#brewery-info');
         breweryInfo.show();
@@ -234,7 +221,7 @@ app.createMarker = function(place, icon){
         $('.brewery-address').text(placeAddress);
         $('.brewery-rating').text(placeRating);
         app.getReviews();
-
+        getDirections();
       });
     };
 
@@ -635,7 +622,6 @@ app.createMarker = function(place, icon){
     ];
 
     app.init = function() {
-
 
       $('h1').on('click', function(){
         $(this).toggleClass('animated jackInTheBox');
