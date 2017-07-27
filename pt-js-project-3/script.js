@@ -103,8 +103,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
       window.alert('Directions request failed due to ' + status);
     }
   });
-
-
 };
 
 function callback(results, status) {
@@ -114,8 +112,6 @@ function callback(results, status) {
     }
   }
 }
-
-
 
 // 3. CREATE SEARCH RESULTS MARKERS AND INFOWINDOS
 app.createMarker = function(place, icon){
@@ -156,28 +152,14 @@ app.createMarker = function(place, icon){
         `<div class="info-window">
         <a href="#${placeName}" class="placeName">🍺 ${placeName}</a>
         <p>${placeAddress}</p>
-        <p>Get directions</p>
+        <a href="#" class="show-route">Show route</a>
         </div>`);
 
         infowindow.open(map, this);
         app.infoPanel();
-        //         app.getDirections();
-        // console.log(currentLocation);
 
       });
     };
-
-
-    // // 4. GET DIRECTIONS
-    // app.getDirections = function(){
-    //   // console.log(placeName);
-    //   let origin = currentLocation;
-    //   let destination = placeAddress;
-    //
-    //   console.log(`origin: ${currentLocation}`);
-    //   console.log(`destination: ${destination}`);
-    //
-    // }
 
 
     // 5. GET REVIEWS
@@ -221,8 +203,12 @@ app.createMarker = function(place, icon){
         $('.brewery-address').text(placeAddress);
         $('.brewery-rating').text(placeRating);
         app.getReviews();
-        getDirections();
+        // getDirections();
       });
+
+      $('.show-route').on('click', function(){
+        getDirections();
+      })
     };
 
     app.snazzyMap = [
