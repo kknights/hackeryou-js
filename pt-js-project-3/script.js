@@ -1,9 +1,6 @@
 //TODO: SLIDE DOWN TO #MAP
-//TODO: namespacing
-//TODO: sticky footer
 
-
-
+//√ TODO: sticky footer
 //√ TODO: GET DIRECTIONS
 //√ TODO: STYLE REVIEWS
 //√ TODO: GET REVIEWS AND/OR PHOTOS
@@ -20,23 +17,45 @@ $(function(){
 
 const app = {};
 const map_wrapper = $('.map_wrapper');
-const $map = $('#map');
 
 let currentLocation,
-longitude,
-latitude,
-place,
-placeName,
-placeAddress,
-placeRating,
-placeReviews,
-placePhotos,
-placeID,
-getDirections;
+    longitude,
+    latitude,
+    place,
+    placeName,
+    placeAddress,
+    placeRating,
+    placeReviews,
+    placePhotos,
+    placeID,
+    getDirections;
+
+
+// 0.  Page elements
+app.buttonStuff = function(){
+  let $button = $('button');
+
+  $($button).on('click', function(){
+    map_wrapper.show();
+    app.getCurrentLocation();
+  });
+
+  $($button).hover(
+    function(){
+      $(this).toggleClass('animated pulse infinite');
+    }
+  );
+}
+
+app.titleEffects = function() {
+  $('h1').on('click', function() {
+    $(this).toggleClass('animated jackInTheBox');
+  });
+}
+
 
 // 1. GET USER'S CURRENT LOCATION, THEN LOAD GOOGLE API SCRIPT
 app.getCurrentLocation = function(){
-
   app.getLocation = function(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(app.coords);
@@ -59,6 +78,7 @@ app.getCurrentLocation = function(){
   app.getLocation();
 };
 
+
 // 2. DISPLAY GOOGLE MAP SHOWING BREWERIES ETC
 initMap = function(){
 
@@ -70,28 +90,26 @@ initMap = function(){
     styles: app.snazzyMap
   });
 
-
   let breweries = new google.maps.places.PlacesService(map);
   let directionsService = new google.maps.DirectionsService;
   let directionsDisplay = new google.maps.DirectionsRenderer;
-
 
   breweries.nearbySearch({
     location: currentLocation ,
     radius: 5000,
     type: ['bar'],
     keyword: ['beer', 'brewery']
-  }, callback);
+  }, app.callback);
 
   directionsDisplay.setMap(map);
 
   getDirections = function() {
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
+    app.calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
 }
 
-//namespace this?
-function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+// 3. show the route
+app.calculateAndDisplayRoute = function(directionsService, directionsDisplay) {
   directionsService.route({
     origin: currentLocation,
     destination: placeAddress,
@@ -105,7 +123,9 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   });
 };
 
-function callback(results, status) {
+
+app.callback = function(results, status){
+// function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       app.createMarker(results[i]);
@@ -113,15 +133,9 @@ function callback(results, status) {
   }
 }
 
-// 3. CREATE SEARCH RESULTS MARKERS AND INFOWINDOS
+
+// 3. CREATE SEARCH RESULTS MARKERS AND INFOWINDOW
 app.createMarker = function(place, icon){
-  // search result markers
-  let marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location,
-    reference: place.reference,
-    icon: 'img/icon_breweries.png'
-  });
 
   // current location marker
   let currentMarker = new google.maps.Marker({
@@ -138,6 +152,16 @@ app.createMarker = function(place, icon){
       infowindow.open(map, this);
       app.infoPanel();
     });
+
+
+    // search result markers
+    let marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location,
+      reference: place.reference,
+      icon: 'img/icon_breweries.png'
+    });
+
 
     // search result info windows
     google.maps.event.addListener(marker, 'click', function() {
@@ -157,10 +181,8 @@ app.createMarker = function(place, icon){
 
         infowindow.open(map, this);
         app.infoPanel();
-
       });
     };
-
 
     // 5. GET REVIEWS
     app.getReviews = function(){
@@ -196,17 +218,16 @@ app.createMarker = function(place, icon){
     //INFOPANEL SIDEBAR THING
     app.infoPanel = function(){
       $('.placeName').on('click', function(){
-
         const breweryInfo = $('#brewery-info');
         breweryInfo.show();
         $('.brewery-name').text(placeName);
         $('.brewery-address').text(placeAddress);
         $('.brewery-rating').text(placeRating);
         app.getReviews();
-        // getDirections();
       });
 
-      $('.show-route').on('click', function(){
+      $('.show-route').on('click', function(e){
+        e.preventDefault();
         getDirections();
       })
     };
@@ -608,21 +629,6 @@ app.createMarker = function(place, icon){
     ];
 
     app.init = function() {
-
-      $('h1').on('click', function(){
-        $(this).toggleClass('animated jackInTheBox');
-      });
-
-      let $button = $('button');
-
-      $($button).on('click', function(){
-        map_wrapper.show();
-        app.getCurrentLocation();
-      });
-
-      $($button).hover(
-        function(){
-          $(this).toggleClass('animated pulse infinite');
-        }
-      );
+      app.buttonStuff();
+      app.titleEffects();
     };
